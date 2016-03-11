@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="geW-A1-TKm">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="NFD-ee-9jb">
+            <objects>
+                <tabBarController id="geW-A1-TKm" customClass="TabBarViewController" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="SEP-ZC-WOH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Saa-if-FTA"/>
+                        <segue destination="DMy-EF-8fv" kind="relationship" relationship="viewControllers" id="pb5-hq-8U4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B2e-ta-0L0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-491" y="-177"/>
+        </scene>
+        <!--DownloadLIst-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" userLabel="DownloadLIst" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="onT-8p-Bic">
+                                <rect key="frame" x="140" y="70" width="320" height="85"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IrH-Sv-bsE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="bXj-t9-Lbs"/>
+                                            <constraint firstAttribute="height" constant="2" id="fkd-ew-DSg"/>
+                                        </constraints>
+                                    </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k01-tS-geI">
+                                        <rect key="frame" x="93" y="22" width="135" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="135" id="XZs-ca-XcI"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="aaj-8v-JHo"/>
+                                            <constraint firstAttribute="height" constant="22" id="fPE-ym-mpr"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="135" id="wh7-hT-7Gt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前速度: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lck-7Q-4Gl">
+                                        <rect key="frame" x="60" y="64" width="200" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="7pV-ix-GG7"/>
+                                            <constraint firstAttribute="width" constant="200" id="fz3-ba-Xav"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="oH4-BW-f0D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="PdS-M8-epb">
+                                <rect key="frame" x="181" y="364" width="238" height="147"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="TTg-p7-144">
+                                        <rect key="frame" x="0.0" y="0.0" width="238" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gm0-uQ-ddq">
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="AXN-nE-7t2"/>
+                                                </constraints>
+                                                <state key="normal" title="下载">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressDownloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LWv-H1-YZL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lo8-Vy-R6q">
+                                                <rect key="frame" x="96" y="0.0" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="Wp3-L1-qdG"/>
+                                                </constraints>
+                                                <state key="normal" title="取消">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cAQ-Im-IH3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGD-q9-yEH">
+                                                <rect key="frame" x="192" y="0.0" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="kU5-5d-eeI"/>
+                                                </constraints>
+                                                <state key="normal" title="删除">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressDeleteButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x2h-XF-txf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="KZf-1F-Wj8">
+                                        <rect key="frame" x="39" y="70" width="160" height="77"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Vo6-cy-fLB">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="77"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仅WiFi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHA-ke-Mai">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="26"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="5Yk-PU-Gu4"/>
+                                                            <constraint firstAttribute="height" constant="26" id="fVj-zL-FwO"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8dI-6Q-hwy">
+                                                        <rect key="frame" x="6" y="46" width="51" height="31"/>
+                                                        <connections>
+                                                            <action selector="changeSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="Iaq-dB-5NH"/>
+                                                        </connections>
+                                                    </switch>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTL-Fc-fcd">
+                                                <rect key="frame" x="110" y="24" width="50" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="R7V-48-hSe"/>
+                                                    <constraint firstAttribute="width" constant="50" id="bun-KP-VP7"/>
+                                                </constraints>
+                                                <state key="normal" title="Crash">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressCrashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mlQ-9h-RP3"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PdS-M8-epb" secondAttribute="bottom" constant="40" id="W3T-B4-19J"/>
+                            <constraint firstItem="PdS-M8-epb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cZ8-kp-4ct"/>
+                            <constraint firstItem="onT-8p-Bic" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mLo-aj-Gou"/>
+                            <constraint firstItem="onT-8p-Bic" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="nSl-T2-5GO"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Download" id="3Dy-kg-wi5" userLabel="Downlist"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="lo8-Vy-R6q" id="wwR-ml-Ytb"/>
+                        <outlet property="deleteButton" destination="UGD-q9-yEH" id="TT1-NT-ZiC"/>
+                        <outlet property="downloadButton" destination="Gm0-uQ-ddq" id="S26-V1-bxA"/>
+                        <outlet property="percentageLabel" destination="k01-tS-geI" id="TDX-Yh-x04"/>
+                        <outlet property="progressView" destination="IrH-Sv-bsE" id="b2S-te-EO3"/>
+                        <outlet property="remaningTimeLabel" destination="lck-7Q-4Gl" id="Vet-tI-3Pz"/>
+                        <outlet property="wifiSwitch" destination="8dI-6Q-hwy" id="J4V-K7-5Md"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="241" y="-621"/>
+        </scene>
+        <!--Download Manager-->
+        <scene sceneID="abQ-8t-3pP">
+            <objects>
+                <navigationController id="DMy-EF-8fv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Download Manager" id="kSm-Cy-C88"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obs-w1-ZDY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pXj-r6-N2I" kind="relationship" relationship="rootViewController" id="47z-Yt-6WV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ow1-OG-H1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="255" y="106"/>
+        </scene>
+        <!--回顾视频-->
+        <scene sceneID="zl0-nW-sdI">
+            <objects>
+                <viewController id="pXj-r6-N2I" customClass="HJMDownloaderManagerContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cyq-8o-BRF"/>
+                        <viewControllerLayoutGuide type="bottom" id="fd7-Bj-7f8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hjd-34-jah">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="回顾视频" id="KPu-uP-BYN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y3E-Zd-fcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042" y="175"/>
+        </scene>
+    </scenes>
+</document>

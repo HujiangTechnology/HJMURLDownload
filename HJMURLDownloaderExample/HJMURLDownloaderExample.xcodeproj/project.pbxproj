@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		163FC1601A495FB100493899 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC15F1A495FB100493899 /* main.m */; };
+		163FC1631A495FB100493899 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1621A495FB100493899 /* AppDelegate.m */; };
+		163FC1661A495FB100493899 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1651A495FB100493899 /* ViewController.m */; };
+		163FC1691A495FB100493899 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 163FC1671A495FB100493899 /* Main.storyboard */; };
+		163FC16B1A495FB100493899 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 163FC16A1A495FB100493899 /* Images.xcassets */; };
+		163FC16E1A495FB100493899 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163FC16C1A495FB100493899 /* LaunchScreen.xib */; };
+		163FC17A1A495FB100493899 /* HJMURLDownloaderExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1791A495FB100493899 /* HJMURLDownloaderExampleTests.m */; };
+		163FC1B51A4AB69000493899 /* DownloadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1B41A4AB69000493899 /* DownloadTableViewController.m */; };
+		164867831A5929760032794E /* HJMZipWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 164867821A5929760032794E /* HJMZipWrapper.m */; };
+		167C21C31A5292BE0061C69B /* LessonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 167C21C21A5292BE0061C69B /* LessonItem.m */; };
+		16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */; };
+		929E68753C5D0661FEE1D3C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C6945508612BF54A7BAF00 /* libPods.a */; };
+		F32F9BA81A6397950050E109 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F32F9BA71A6397950050E109 /* TabBarViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		163FC1741A495FB100493899 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 163FC1521A495FB100493899 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 163FC1591A495FB100493899;
+			remoteInfo = HJMURLDownloaderExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		163FC15A1A495FB100493899 /* HJMURLDownloaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HJMURLDownloaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		163FC15E1A495FB100493899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		163FC15F1A495FB100493899 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		163FC1611A495FB100493899 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		163FC1621A495FB100493899 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		163FC1641A495FB100493899 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		163FC1651A495FB100493899 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		163FC1681A495FB100493899 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		163FC16A1A495FB100493899 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		163FC16D1A495FB100493899 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		163FC1731A495FB100493899 /* HJMURLDownloaderExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HJMURLDownloaderExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		163FC1781A495FB100493899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		163FC1791A495FB100493899 /* HJMURLDownloaderExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HJMURLDownloaderExampleTests.m; sourceTree = "<group>"; };
+		163FC1B31A4AB69000493899 /* DownloadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DownloadTableViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		163FC1B41A4AB69000493899 /* DownloadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DownloadTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		164867811A5929760032794E /* HJMZipWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HJMZipWrapper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		164867821A5929760032794E /* HJMZipWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HJMZipWrapper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		167C21C11A5292BE0061C69B /* LessonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LessonItem.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		167C21C21A5292BE0061C69B /* LessonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LessonItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		16C6945508612BF54A7BAF00 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E066B81A5BC78E0072FB6A /* HJMURLDownloaderInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HJMURLDownloaderInstance.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HJMURLDownloaderInstance.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F32F9BA61A6397950050E109 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TabBarViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F32F9BA71A6397950050E109 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TabBarViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		163FC1571A495FB100493899 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				929E68753C5D0661FEE1D3C0 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		163FC1701A495FB100493899 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		132362DBB9B55752ABE67F22 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */,
+				1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		163FC1511A495FB100493899 = {
+			isa = PBXGroup;
+			children = (
+				163FC15C1A495FB100493899 /* HJMURLDownloaderExample */,
+				163FC1761A495FB100493899 /* HJMURLDownloaderExampleTests */,
+				163FC15B1A495FB100493899 /* Products */,
+				132362DBB9B55752ABE67F22 /* Pods */,
+				165994B3CC98E244EAE935D8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		163FC15B1A495FB100493899 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				163FC15A1A495FB100493899 /* HJMURLDownloaderExample.app */,
+				163FC1731A495FB100493899 /* HJMURLDownloaderExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		163FC15C1A495FB100493899 /* HJMURLDownloaderExample */ = {
+			isa = PBXGroup;
+			children = (
+				163FC1611A495FB100493899 /* AppDelegate.h */,
+				163FC1621A495FB100493899 /* AppDelegate.m */,
+				16E066B81A5BC78E0072FB6A /* HJMURLDownloaderInstance.h */,
+				16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */,
+				163FC1641A495FB100493899 /* ViewController.h */,
+				163FC1651A495FB100493899 /* ViewController.m */,
+				167C21C11A5292BE0061C69B /* LessonItem.h */,
+				167C21C21A5292BE0061C69B /* LessonItem.m */,
+				163FC1671A495FB100493899 /* Main.storyboard */,
+				163FC1B31A4AB69000493899 /* DownloadTableViewController.h */,
+				163FC1B41A4AB69000493899 /* DownloadTableViewController.m */,
+				164867811A5929760032794E /* HJMZipWrapper.h */,
+				164867821A5929760032794E /* HJMZipWrapper.m */,
+				163FC16A1A495FB100493899 /* Images.xcassets */,
+				163FC16C1A495FB100493899 /* LaunchScreen.xib */,
+				163FC15D1A495FB100493899 /* Supporting Files */,
+				F32F9BA61A6397950050E109 /* TabBarViewController.h */,
+				F32F9BA71A6397950050E109 /* TabBarViewController.m */,
+			);
+			path = HJMURLDownloaderExample;
+			sourceTree = "<group>";
+		};
+		163FC15D1A495FB100493899 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				163FC15E1A495FB100493899 /* Info.plist */,
+				163FC15F1A495FB100493899 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		163FC1761A495FB100493899 /* HJMURLDownloaderExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				163FC1791A495FB100493899 /* HJMURLDownloaderExampleTests.m */,
+				163FC1771A495FB100493899 /* Supporting Files */,
+			);
+			path = HJMURLDownloaderExampleTests;
+			sourceTree = "<group>";
+		};
+		163FC1771A495FB100493899 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				163FC1781A495FB100493899 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		165994B3CC98E244EAE935D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16C6945508612BF54A7BAF00 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		163FC1591A495FB100493899 /* HJMURLDownloaderExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 163FC17D1A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExample" */;
+			buildPhases = (
+				4B4A8417E853C223AF145FE6 /* Check Pods Manifest.lock */,
+				163FC1561A495FB100493899 /* Sources */,
+				163FC1571A495FB100493899 /* Frameworks */,
+				163FC1581A495FB100493899 /* Resources */,
+				7E239875CED80755A7F3535D /* Copy Pods Resources */,
+				20597D5E61EF043A7BD25B15 /* Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HJMURLDownloaderExample;
+			productName = HJMURLDownloaderExample;
+			productReference = 163FC15A1A495FB100493899 /* HJMURLDownloaderExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		163FC1721A495FB100493899 /* HJMURLDownloaderExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 163FC1801A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExampleTests" */;
+			buildPhases = (
+				163FC16F1A495FB100493899 /* Sources */,
+				163FC1701A495FB100493899 /* Frameworks */,
+				163FC1711A495FB100493899 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				163FC1751A495FB100493899 /* PBXTargetDependency */,
+			);
+			name = HJMURLDownloaderExampleTests;
+			productName = HJMURLDownloaderExampleTests;
+			productReference = 163FC1731A495FB100493899 /* HJMURLDownloaderExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		163FC1521A495FB100493899 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = HJ;
+				TargetAttributes = {
+					163FC1591A495FB100493899 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					163FC1721A495FB100493899 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 163FC1591A495FB100493899;
+					};
+				};
+			};
+			buildConfigurationList = 163FC1551A495FB100493899 /* Build configuration list for PBXProject "HJMURLDownloaderExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 163FC1511A495FB100493899;
+			productRefGroup = 163FC15B1A495FB100493899 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				163FC1591A495FB100493899 /* HJMURLDownloaderExample */,
+				163FC1721A495FB100493899 /* HJMURLDownloaderExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		163FC1581A495FB100493899 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				163FC1691A495FB100493899 /* Main.storyboard in Resources */,
+				163FC16E1A495FB100493899 /* LaunchScreen.xib in Resources */,
+				163FC16B1A495FB100493899 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		163FC1711A495FB100493899 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20597D5E61EF043A7BD25B15 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B4A8417E853C223AF145FE6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7E239875CED80755A7F3535D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		163FC1561A495FB100493899 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				163FC1661A495FB100493899 /* ViewController.m in Sources */,
+				163FC1631A495FB100493899 /* AppDelegate.m in Sources */,
+				163FC1601A495FB100493899 /* main.m in Sources */,
+				16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */,
+				F32F9BA81A6397950050E109 /* TabBarViewController.m in Sources */,
+				164867831A5929760032794E /* HJMZipWrapper.m in Sources */,
+				167C21C31A5292BE0061C69B /* LessonItem.m in Sources */,
+				163FC1B51A4AB69000493899 /* DownloadTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		163FC16F1A495FB100493899 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				163FC17A1A495FB100493899 /* HJMURLDownloaderExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		163FC1751A495FB100493899 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 163FC1591A495FB100493899 /* HJMURLDownloaderExample */;
+			targetProxy = 163FC1741A495FB100493899 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		163FC1671A495FB100493899 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				163FC1681A495FB100493899 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		163FC16C1A495FB100493899 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				163FC16D1A495FB100493899 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		163FC17B1A495FB100493899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		163FC17C1A495FB100493899 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		163FC17E1A495FB100493899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HJMURLDownloaderExample",
+				);
+				INFOPLIST_FILE = HJMURLDownloaderExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hujiang.hjm.hd.HJMURLDownloaderExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		163FC17F1A495FB100493899 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HJMURLDownloaderExample",
+				);
+				INFOPLIST_FILE = HJMURLDownloaderExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hujiang.hjm.hd.HJMURLDownloaderExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		163FC1811A495FB100493899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HJMURLDownloaderExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hujiang.hjm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HJMURLDownloaderExample.app/HJMURLDownloaderExample";
+			};
+			name = Debug;
+		};
+		163FC1821A495FB100493899 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HJMURLDownloaderExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hujiang.hjm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HJMURLDownloaderExample.app/HJMURLDownloaderExample";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		163FC1551A495FB100493899 /* Build configuration list for PBXProject "HJMURLDownloaderExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163FC17B1A495FB100493899 /* Debug */,
+				163FC17C1A495FB100493899 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		163FC17D1A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163FC17E1A495FB100493899 /* Debug */,
+				163FC17F1A495FB100493899 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		163FC1801A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163FC1811A495FB100493899 /* Debug */,
+				163FC1821A495FB100493899 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 163FC1521A495FB100493899 /* Project object */;
+}
