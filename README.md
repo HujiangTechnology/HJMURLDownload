@@ -9,7 +9,7 @@
 
 ### 初始化和创建下载
 
-``` 
+````objc 
 /**
  *  单例方法
  */
@@ -30,11 +30,11 @@
  *  @param OnlyWiFiAccess                   是否仅WiFi环境下载
  */
 - (instancetype)initBackgroundDownloaderWithIdentifier:(NSString *)identifier maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess;
-```
+````
 
 ### AppDelegate相关配置
 
-``` 
+````objc 
 - (void)application:(UIApplication *)anApplication handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler
 {
 // 后台使用Background downloader 两种情况
@@ -60,7 +60,7 @@
 
 ### delegate 方法
 
-``` 
+````objc 
 /**
  *  是否有足够的磁盘空间
  *
@@ -83,7 +83,7 @@
 
 ### 添加和取消下载操作
 
-``` 
+````objc 
 /**
  *  基本添加和取消操作
  *
@@ -126,7 +126,7 @@
 
 ##### 初始化操作
 
-``` 
+````objc 
 + (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -140,7 +140,7 @@
 
 ##### 创建下载任务
 
-``` 
+````objc 
         [self.downloadManager addDownloadWithURL:[NSURL URLWithString:self.originURLString] progress:^(float progress, int64_t totalLength, NSInteger remainingTime) {
 		//	获取progress totalLength remainingTime
 		//	UI展示等操作
@@ -151,7 +151,7 @@
 
 ##### 实现代理方法
 
-``` 
+````objc 
 - (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData {
     return YES;
 }
@@ -171,7 +171,7 @@
 
 ##### 取消下载
 
-``` 
+````objc 
 	[self.downloadManager cancelAURLDownloadWithIdentifier:self.originURLString];
 
 
@@ -181,7 +181,7 @@
 
 ##### 初始化操作
 
-``` 
+````objc 
 + (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -196,7 +196,7 @@
 
 ##### 初始化遵循HJMURLDownloadExItem协议的实例，配置对应属性值
 
-``` 
+````objc
 - (LessonItem *)createALessonItem {
 
     LessonItem *aLesson = [[LessonItem alloc] init];
@@ -230,13 +230,13 @@
 
 ##### 创建下载任务
 
-``` 
+````objc 
 	[self.downloadManager addURLDownloadItem:[self createALessonItem]];
 ```
 
 ##### 实现代理方法
 
-``` 
+````objc 
 - (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData {
     return YES;
 }
@@ -256,7 +256,7 @@
 
 ##### 取消下载
 
-``` 
+````objc 
 	[self.downloadManager cancelAURLDownloadItem:[self.lessonsArray firstObject]];
 
 ```
@@ -267,7 +267,7 @@
 
 ### 属性
 
-``` 
+````objc 
  /**
  *  获得下载管理器同步UI显示
  */
@@ -279,7 +279,7 @@
 
 ### 设置下载完成后点击播放调用的方法
 
-``` 
+````objc 
 /**
  *  点击下载完成的cell的progressButton触发的动作
  *
@@ -292,8 +292,7 @@
 
 ##### 初始化设置
 
-``` 
-
+````objc 
 HJMDownloaderManagerContainerViewController *downloaderManagerContainerViewController = 
 (HJMDownloaderManagerContainerViewController *)navigationController.topViewController;
 
@@ -310,7 +309,7 @@ HJMDownloaderManagerContainerViewController *downloaderManagerContainerViewContr
 
 ##### 设置下载完成的 block
 
-``` 
+````objc 
     [downloaderManagerContainerViewController setDownloadedOtherActionBlock:
      ^(HJMDownloaderManagerTableViewController *downloaderManagerTableViewController, HJMCDDownloadItem *downloadItem) {
 
@@ -320,7 +319,7 @@ HJMDownloaderManagerContainerViewController *downloaderManagerContainerViewContr
 
 ### 用户自定义设置
 
-``` 
+````objc 
 /**
  *  设置segmentControl的标题
  */
@@ -435,7 +434,6 @@ HJMDownloaderManagerContainerViewController *downloaderManagerContainerViewContr
  *  刷新页面（内部调用TableView的reloadData）
  */
 - (void)reloadDownloadData;
-
 
 ```
 
