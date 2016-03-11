@@ -12,22 +12,11 @@
 #import "HJMCDDownloadItem.h"
 #import "HJMCircleProgressButton.h"
 
-NSString * const HJMLastPlayedTimeKey = @"com.hujiang.hjmdownloader.lastPlayedTimeKey";
-
-static NSDateFormatter * playTimeDateFormatter() {
-    static NSDateFormatter *dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-    });
-    return dateFormatter;
-}
-
 @interface HJMDownloaderTableViewCell ()
 
 @property (strong, nonatomic) UIImageView *redDotImageView;
 @property (strong, nonatomic) HJMCircleProgressButton *progressButton;
-@property (strong, nonatomic) UILabel *lastPlayedTimeLabel;
+@property (strong, nonatomic) UILabel *otherInfoLabel;
 @property (assign, nonatomic) NSInteger status;
 @property (strong, nonatomic) NSByteCountFormatter *byteCountFormatter;
 
@@ -70,7 +59,7 @@ static NSDateFormatter * playTimeDateFormatter() {
         _redDotImageView.hidden = YES;
         [self.contentView addSubview:_redDotImageView];
 
-        _lastPlayedTimeLabel = ({
+        _otherInfoLabel = ({
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
             label.font = [UIFont systemFontOfSize:13];
             label.textColor = [UIColor colorWithRed:0.098
@@ -116,44 +105,15 @@ static NSDateFormatter * playTimeDateFormatter() {
         self.detailTextLabel.text = [self.byteCountFormatter stringFromByteCount:[downloadItem.totalSize longLongValue]];
     }
 
-
-    NSDictionary *userInfo = downloadItem.userInfo;
-    NSUInteger playTime = [userInfo[HJMLastPlayedTimeKey] unsignedIntegerValue];
-    
-    if (playTime > 0) {
-        
-        NSDateComponents *dc = [[NSDateComponents alloc] init];
-        dc.second = playTime;
-        NSDateFormatter *dateFormatter = playTimeDateFormatter();
-        NSDate *lastPlayTime = [[NSCalendar autoupdatingCurrentCalendar] dateFromComponents:dc];
-        
-        NSDateComponents *dateComponents = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitHour |
-                                                                                                NSMinuteCalendarUnit |
-                                                                                                NSSecondCalendarUnit
-                                                                                       fromDate:lastPlayTime];
-        if (dateComponents.hour == 0) {
-            dateFormatter.dateFormat = @"mm:ss";
-        } else {
-            dateFormatter.dateFormat = @"HH:mm:ss";
-        }
-        self.lastPlayedTimeLabel.textColor = [UIColor colorWithRed:0.6
-                                                             green:0.6
-                                                              blue:0.6
+    if (status == HJMURLDownloadStatusDownloadFailed) {
+        self.otherInfoLabel.textColor = [UIColor colorWithRed:0.97
+                                                             green:0.42
+                                                              blue:0.41
                                                              alpha:1];
-        
-        self.lastPlayedTimeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"上次听到：%@", @""), [dateFormatter stringFromDate:lastPlayTime]];
+
+        self.otherInfoLabel.text = NSLocalizedString(@"下载错误，请重试", @"");
     } else {
-        if (status == HJMURLDownloadStatusDownloadFailed) {
-            
-            self.lastPlayedTimeLabel.textColor = [UIColor colorWithRed:0.97
-                                                                 green:0.42
-                                                                  blue:0.41
-                                                                 alpha:1];
-            
-            self.lastPlayedTimeLabel.text = NSLocalizedString(@"下载错误，请重试", @"");
-        } else {
-            self.lastPlayedTimeLabel.text = nil;
-        }
+        self.otherInfoLabel.text = nil;
     }
 
 
@@ -245,11 +205,11 @@ static NSDateFormatter * playTimeDateFormatter() {
     frame.origin.y = CGRectGetMaxY(self.textLabel.frame) + 6;
     self.detailTextLabel.frame = frame;
 
-    [self.lastPlayedTimeLabel sizeToFit];
-    CGPoint center = self.lastPlayedTimeLabel.center;
-    center.x = CGRectGetMaxX(frame) + CGRectGetWidth(self.lastPlayedTimeLabel.bounds) * 0.5f + 15.0f;
+    [self.otherInfoLabel sizeToFit];
+    CGPoint center = self.otherInfoLabel.center;
+    center.x = CGRectGetMaxX(frame) + CGRectGetWidth(self.otherInfoLabel.bounds) * 0.5f + 15.0f;
     center.y = self.detailTextLabel.center.y;
-    self.lastPlayedTimeLabel.center = center;
+    self.otherInfoLabel.center = center;
 }
 
 #pragma mark - perform actions
