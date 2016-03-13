@@ -5,7 +5,11 @@
 - 使用Protocol扩展下载信息，提供了 Delegate 和 Block 两种回调方式，便于替换到现有项目
 - 处理了较多的异常情况，例如用户手动将后台 app 杀掉后第二次启动的逻辑
 
-# 参考Demo
+# 介绍文章
+
+[iOS 通用下载管理器-HJMURLDownloader](http://mobilev5.github.io/2016/03/13/meeting-common-urldownloader/)
+
+# 运行 Demo
 
 $ cd HJMURLDownloaderExample  
 $ pod install   
@@ -15,7 +19,7 @@ $ open HJMURLDownloaderExample.xcworkspace
 
 建议使用 Cocoapods 集成到项目中
 
-``` pod 'HJMURLDownloader' ```
+``` pod 'HJMURLDownloader' :git => 'https://github.com/HujiangTechnology/HJMURLDownloader.git' ```
 
 ## HJMURLDownloadManager
 
