@@ -19,7 +19,7 @@ $ open HJMURLDownloaderExample.xcworkspace
 
 建议使用 Cocoapods 集成到项目中
 
-``` pod 'HJMURLDownloader' :git => 'https://github.com/HujiangTechnology/HJMURLDownloader.git' ```
+``` pod 'HJMURLDownloader' ```
 
 ## HJMURLDownloadManager
 
