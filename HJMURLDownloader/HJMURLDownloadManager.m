@@ -534,6 +534,11 @@ NSURLSessionDownloadDelegate>
     [self startAURLDownloadObject:downloadObject];
 }
 
+- (id<HJMURLDownloadExItem>)getAURLDownloadWithIdentifier:(NSString *)identifier {
+    HJMCDDownloadItem *hjmcdDownloadItem = [HJMCDDownloadItem downloadItemForIdentifier:identifier userID:self.userID];
+    return [[HJMURLDownloadObject alloc] initWithCDDownloadItem:hjmcdDownloadItem];
+}
+
 - (void)cancelAllDownloads {
     [self.waitingDownloadsArray enumerateObjectsUsingBlock:^(HJMURLDownloadObject * _Nonnull downloadObject, NSUInteger idx, BOOL * _Nonnull stop) {
         downloadObject.status = HJMURLDownloadStatusPaused;

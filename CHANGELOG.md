@@ -1,4 +1,10 @@
+1.1.0
+
+---
+- 添加 ```- (id<HJMURLDownloadExItem>)getAURLDownloadWithIdentifier:(NSString *)identifier ``` 接口，根据 identifier 获取当然任务的下载信息
+
 1.0.3
+
 ---
 - @import 改为 #import
 - 解决删除下载未清除数据库记录的问题

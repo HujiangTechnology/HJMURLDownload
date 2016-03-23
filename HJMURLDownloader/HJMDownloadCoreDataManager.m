@@ -323,6 +323,9 @@ dispatch_queue_t hjm_coredata_queue() {
             shouldSave = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:HJMCDDownloadItemDidIsNewDownloadPropertyUpdatedNotification object:nil];
         }
+        if (resumeData.length > 0) {
+            shouldSave = YES;
+        }
     }];
     if (shouldSave) {
         [[self class] saveContext];

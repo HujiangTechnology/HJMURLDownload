@@ -108,6 +108,19 @@
     self.wifiSwitch.on = self.downloadManager.isOnlyWiFiAccess;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self recoverUI];
+}
+
+- (void)recoverUI {
+    id<HJMURLDownloadExItem> item = [self.downloadManager getAURLDownloadWithIdentifier:self.originURLString];
+    if (item) {
+        self.progressView.progress = item.downloadProgress;
+        self.percentageLabel.text = [NSString stringWithFormat:@"%.f%%", item.downloadProgress * 100];
+    }
+}
+
 - (void)resetUI {
     self.progressView.progress = 0.0;
     self.remaningTimeLabel.text = @"当前速度:";
@@ -130,7 +143,9 @@
     NSString *downloadfilename = [NSString stringWithFormat:@"lesson%@.zip", @(self.index++)];
     aLesson.relativePath = downloadfilename;
 
-    aLesson.identifier = [NSString stringWithFormat:@"1232333334111112333%@", @(self.index)];
+    //TODO: RecoverUI more clear
+    aLesson.identifier = self.originURLString;
+    //[NSString stringWithFormat:@"1232333334111112333%@", @(self.index)];
     aLesson.title = [downloadfilename stringByDeletingPathExtension];
     aLesson.category = [NSString stringWithFormat:@"Category %d", arc4random() % 4];
 

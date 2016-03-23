@@ -122,6 +122,13 @@ extern NSString *const kHJMURLDownloaderDownloadTaskDidFinishDownloadingNotifica
 - (void)addURLDownloadItem:(id<HJMURLDownloadExItem>)downloadItem;
 
 /**
+ *  获取下载任务信息
+ *
+ *  @param identifier 下载对象的identifier
+ */
+- (id<HJMURLDownloadExItem>)getAURLDownloadWithIdentifier:(NSString *)identifier;
+
+/**
  *  取消下载任务
  *
  *  @param downloadItem 下载对象模型
