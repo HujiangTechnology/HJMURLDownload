@@ -750,13 +750,14 @@ didFinishDownloadingToURL:(NSURL *)aLocation {
     }
     BOOL isFileReady = NO;
     if (targetURL) {
+        [[NSFileManager defaultManager] removeItemAtURL:targetURL error:nil] ;
         isFileReady = [[NSFileManager defaultManager] moveItemAtURL:aLocation
                                                               toURL:targetURL
                                                               error:&error];
     }
     if (error || !isFileReady) {
         downloadObject.status = HJMURLDownloadStatusDownloadFailed;
-        [[NSFileManager defaultManager] removeItemAtURL:targetURL error:nil] ;
+        [[NSFileManager defaultManager] removeItemAtURL:aLocation error:nil] ;
     } else {
         downloadObject.status = HJMURLDownloadStatusSucceeded;
     }
