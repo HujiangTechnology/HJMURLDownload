@@ -514,7 +514,7 @@ NSURLSessionDownloadDelegate>
                   complete:(HJMURLDownloadCompletionBlock)completeBlock {
     
     if (!url) {
-        if (!completeBlock) {
+        if (completeBlock) {
             completeBlock(NO, nil);
         }
         return;
