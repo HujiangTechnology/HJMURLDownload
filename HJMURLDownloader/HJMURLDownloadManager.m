@@ -308,6 +308,7 @@ NSURLSessionDownloadDelegate>
             HJMURLDownloadObject *downloadObject = [self createAURLDownloadObjectWithDownloadTask:aDownloadTask];
             downloadObject.task = aDownloadTask;
             downloadObject.identifier = aDownloadTask.taskDescription;
+            downloadObject.isLastDownload = YES;
             [self.URLDownloadHandler.delegates enumerateObjectsUsingBlock:^(id<HJMURLDownloadHandlerDelegate> delegate, BOOL *stop) {
                 
                 if ([delegate respondsToSelector:@selector(downloadURLDownloadItemWillRecover:)]) {
@@ -697,10 +698,14 @@ NSURLSessionDownloadDelegate>
 didFinishDownloadingToURL:(NSURL *)aLocation {
     
     [self callCompletionHandlerForSession:session.configuration.identifier];
+   
+    //hack: 解决第二次启动后恢复上次下载任务，但实际上次下载任务未成功但未报Error的问题
+    HJMURLDownloadObject *downloadObject = self.activeDownloadsDictionary[@(downloadTask.taskIdentifier)];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:aLocation.path] && downloadObject.isLastDownload) {
+        return;
+    }
     
     NSError *error;
-    HJMURLDownloadObject *downloadObject = self.activeDownloadsDictionary[@(downloadTask.taskIdentifier)];
-    
     void(^NotificationBlock)(void) = ^(void) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.URLDownloadHandler.delegates enumerateObjectsUsingBlock:^(id<HJMURLDownloadHandlerDelegate> delegate, BOOL *stop) {

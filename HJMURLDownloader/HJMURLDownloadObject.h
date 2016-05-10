@@ -38,6 +38,8 @@
 
 @property (strong, nonatomic) NSManagedObjectID *downloadItemObjectID;
 
+@property (nonatomic) BOOL isLastDownload;
+
 @property (copy, nonatomic) HJMURLDownloadProgressBlock progressBlock;
 @property (copy, nonatomic) HJMURLDownloadCompletionBlock completionBlock;
 
