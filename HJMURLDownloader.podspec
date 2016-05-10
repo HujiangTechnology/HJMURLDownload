@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HJMURLDownloader"
-  s.version      = "1.0.3"
+  s.version      = "1.1.0"
   s.summary      = "common downloader based on NSURLSession"
 
   s.homepage     = "https://github.com/HujiangTechnology/HJMURLDownloader"

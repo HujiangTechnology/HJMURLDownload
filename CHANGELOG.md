@@ -2,6 +2,8 @@
 
 ---
 - 添加 ```- (id<HJMURLDownloadExItem>)getAURLDownloadWithIdentifier:(NSString *)identifier ``` 接口，根据 identifier 获取当然任务的下载信息
+- 解决下载完成后移动文件因目标文件存在导致失败的问题
+- (待验证)解决第二次启动后恢复上次下载任务，但实际上次下载任务未成功但未报Error的问题
 
 1.0.3
 
