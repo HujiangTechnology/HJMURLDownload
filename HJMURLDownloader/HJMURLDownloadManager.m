@@ -771,12 +771,11 @@ didFinishDownloadingToURL:(NSURL *)aLocation {
             if (downloadObject.completionBlock) {
                 downloadObject.completionBlock(isFileReady, targetURL);
                 AfterFinishingDownloadBlock();
-            } else {
-                if ([self.delegate respondsToSelector:@selector(downloadTaskDidFinishWithDownloadItem:completionBlock:)]) {
-                    
+            } else if ([self.delegate respondsToSelector:@selector(downloadTaskDidFinishWithDownloadItem:completionBlock:)]) {
                     [self.delegate downloadTaskDidFinishWithDownloadItem:downloadObject
                                                          completionBlock:AfterFinishingDownloadBlock];
-                }
+            } else {
+                AfterFinishingDownloadBlock();
             }
         });
     };
