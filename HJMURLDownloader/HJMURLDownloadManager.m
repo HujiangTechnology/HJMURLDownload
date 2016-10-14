@@ -133,9 +133,6 @@ NSURLSessionDownloadDelegate>
 }
 
 - (HJMDownloadCoreDataManager *)coreDataManager {
-    if (!self.backgroundMode) {
-        return nil;
-    }
     if (!_coreDataManager) {
         _coreDataManager = [[HJMDownloadCoreDataManager alloc] init];
         _coreDataManager.userID = self.userID;
