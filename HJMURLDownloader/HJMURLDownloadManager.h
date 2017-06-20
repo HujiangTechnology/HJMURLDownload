@@ -71,7 +71,7 @@ extern NSString *const kHJMURLDownloaderDownloadTaskDidFinishDownloadingNotifica
  *
  *  @param identifier                       唯一标识，建议identifier命名为 bundleid.XXXXBackgroundDownloader,
  *  @param aMaxConcurrentFileDownloadsCount 最大并发数
- *  @param OnlyWiFiAccess                   是否仅WiFi环境下载
+ *  @param isOnlyWiFiAccess                   是否仅WiFi环境下载
  */
 - (instancetype)initBackgroundDownloaderWithIdentifier:(NSString *)identifier maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess;
 
@@ -98,7 +98,7 @@ extern NSString *const kHJMURLDownloaderDownloadTaskDidFinishDownloadingNotifica
  *
  *  @param aMaxConcurrentFileDownloadsCount 最大并发数
  *  @param isBackgroundMode                 是否支持后台下载
- *  @param OnlyWiFiAccess                   是否仅WiFi环境下载
+ *  @param isOnlyWiFiAccess                   是否仅WiFi环境下载
  */
 - (instancetype)initWithMaxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount isSupportBackgroundMode:(BOOL)isBackgroundMode OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess __attribute__ ((deprecated));
 
