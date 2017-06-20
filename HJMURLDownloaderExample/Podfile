@@ -1,4 +1,13 @@
-source 'http://git.hjlabs.cn/pods-mirror/Specs.git'
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
 
-pod 'HJMURLDownloader', :path=>'../'
-pod 'SSZipArchive'
+target 'HJMURLDownloaderExample' do
+
+  pod 'HJMURLDownloader', :path=>'../'
+  pod 'SSZipArchive'
+  target 'HJMURLDownloaderExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
