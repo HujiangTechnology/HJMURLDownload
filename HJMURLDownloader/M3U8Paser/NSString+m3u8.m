@@ -37,6 +37,7 @@
     NSRange segmentRange = [self rangeOfString:extinfoString];
     NSString *remainingSegments = self;
     
+    int index = 0;
     while (NSNotFound != segmentRange.location) {
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         
@@ -71,8 +72,9 @@
         }
         
         M3U8SegmentInfo *segment = [[M3U8SegmentInfo alloc] initWithDictionary:params];
+        segment.index = index;
         [segmentInfoList addSegementInfo:segment];
-        
+        index++;
 		segmentRange = [remainingSegments rangeOfString:extinfoString];
     }
     

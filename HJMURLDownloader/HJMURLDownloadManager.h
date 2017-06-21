@@ -54,6 +54,8 @@ extern NSString *const kHJMURLDownloaderDownloadTaskDidFinishDownloadingNotifica
 
 @property (nonatomic, getter=isRecoverDownloadAfterReopenApp) BOOL recoverDownloadAfterReopenAppEnable;
 
+@property(nonatomic, strong) NSURLSession *URLSession;
+
 /**
  *  单例方法
  */

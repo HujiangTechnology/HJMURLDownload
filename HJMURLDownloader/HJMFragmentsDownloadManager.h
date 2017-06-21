@@ -7,15 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HJMURLDownloadManager.h"
+#import "M3U8SegmentInfo.h"
+//#import "HJMURLDownloadManager.h"
+
+@protocol HJMFragmentsDownloadManagerDelegate <NSObject>
+
+@required
+- (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData;
+
+@end
 
 @interface HJMFragmentsDownloadManager : NSObject
 
-+ (instancetype)sharedManager;
+@property (nonatomic, weak) id<HJMFragmentsDownloadManagerDelegate> delegate;
+@property (nonatomic, assign) BOOL isSupportBackgroundDownload;
 
-- (void)addDownloadWithURL:(NSURL *)url
-                  progress:(HJMURLDownloadProgressBlock)progressBlock
-                  complete:(HJMURLDownloadCompletionBlock)completeBlock;
+/**
+ *  创建普通下载器，不支持后台下载，默认不限制网络
+ */
++ (instancetype)defaultManager;
 
+/**
+ *  创建普通下载器，不支持后台下载
+ *
+ *  @param aMaxConcurrentFileDownloadsCount 最大并发数(系统限制最大并发为4)
+ */
+- (instancetype)initStandardDownloaderWithMaxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount;
+
+/**
+ *  创建后台下载器，
+ *
+ *  @param identifier                       唯一标识，建议identifier命名为 bundleid.XXXXBackgroundDownloader,
+ *  @param aMaxConcurrentFileDownloadsCount 最大并发数(系统限制最大并发为4)
+ *  @param isOnlyWiFiAccess                   是否仅WiFi环境下载
+ */
+- (instancetype)initBackgroundDownloaderWithIdentifier:(NSString *)identifier maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess;
+
+- (void)downloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragments originalUrl:(NSURL *)originalUrl progressBlock:(void(^)(CGFloat progress))progressBlock completionBlock:(void(^)(NSString *directoryPath))completionBlock errorBlock:(void(^)(NSError *))errorBlock;
 
 @end

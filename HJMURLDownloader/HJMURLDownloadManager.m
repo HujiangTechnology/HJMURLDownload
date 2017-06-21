@@ -29,7 +29,6 @@ NSURLSessionDownloadDelegate>
 
 @property (nonatomic, copy) NSDictionary *HTTPAdditionalHeaders;
 
-@property(nonatomic, strong) NSURLSession *URLSession;
 @property(nonatomic, strong) HJMURLDownloadNotificationHandler *URLDownloadHandler;
 @property(nonatomic, strong) HJMURLDownloadBackgroundSessionCompletionHandlerBlock backgroundSessionCompletionHandlerBlock;
 @property (nonatomic, readwrite, strong) HJMDownloadCoreDataManager *coreDataManager;
