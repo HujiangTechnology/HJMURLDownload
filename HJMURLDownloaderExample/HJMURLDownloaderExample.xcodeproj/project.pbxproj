@@ -19,6 +19,7 @@
 		164867831A5929760032794E /* HJMZipWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 164867821A5929760032794E /* HJMZipWrapper.m */; };
 		167C21C31A5292BE0061C69B /* LessonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 167C21C21A5292BE0061C69B /* LessonItem.m */; };
 		16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */; };
+		E48CC784E042B686C9F06439 /* libPods-HJMURLDownloaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */; };
 		F32F9BA81A6397950050E109 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F32F9BA71A6397950050E109 /* TabBarViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E48CC784E042B686C9F06439 /* libPods-HJMURLDownloaderExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

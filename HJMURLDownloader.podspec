@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.platform = :ios, '7.0'
 
   s.requires_arc = true
-  s.source_files = 'HJMURLDownloader/*.{h,m}', 'HJMURLDownloader/Views/*.{h,m}','HJMURLDownloader/ViewControllers/*.{h,m}', 'HJMURLDownloader/Models/*.{h,m}', 'HJMURLDownloader/Extensions/*.{h,m}'  
-  s.resources = 'HJMURLDownloader/Resource/HJMDownloader.xcdatamodeld', 'HJMURLDownloader/Resource/*.xcmappingmodel', 'HJMURLDownloader/Resource/*.png'
+  s.source_files = 'HJMURLDownloader/*.{h,m}', 'HJMURLDownloader/Views/*.{h,m}','HJMURLDownloader/ViewControllers/*.{h,m}', 'HJMURLDownloader/M3U8Paser/*.{h,m}', 'HJMURLDownloader/Models/*.{h,m}', 'HJMURLDownloader/Extensions/*.{h,m}'  
+  s.resources = 'HJMURLDownloader/Resource/HJMDownloader.xcdatamodeld', 'HJMURLDownloader/Resource/*.xcmappingmodel', 'HJMURLDownloader/Resource/*.png', 'HJMURLDownloader/Resource/*.txt'
 end

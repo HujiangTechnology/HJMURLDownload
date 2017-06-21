@@ -5,6 +5,7 @@ target 'HJMURLDownloaderExample' do
 
   pod 'HJMURLDownloader', :path=>'../'
   pod 'SSZipArchive'
+  pod 'FMDB'
   target 'HJMURLDownloaderExampleTests' do
     inherit! :search_paths
     # Pods for testing
