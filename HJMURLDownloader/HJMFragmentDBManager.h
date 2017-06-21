@@ -18,7 +18,7 @@
 
 - (M3U8SegmentInfo *)oneMoreFragmentModelInTable:(NSString *)tableName;
 
-- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModel toTable:(NSString *)tableName;
+- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName;
 
 - (void)removeFragmentModel:(id<HJMURLDownloadExItem>)fragmentModel inTable:(NSString *)tableName;
 

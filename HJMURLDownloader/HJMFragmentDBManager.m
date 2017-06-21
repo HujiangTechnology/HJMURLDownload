@@ -91,10 +91,14 @@ static HJMFragmentDBManager *manager;
     return fragmentModel;
 }
 
-- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModel toTable:(NSString *)tableName {
+- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(id, url, md5String) VALUES (?, ?, ?)", tableName];
-        [db executeUpdate:sqlString,fragmentModel.sortIndex, fragmentModel.remoteURL, fragmentModel.remoteURL];
+        [db beginTransaction];
+        [fragmentModels enumerateObjectsUsingBlock:^(id <HJMURLDownloadExItem> _Nonnull fragmentModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(id, url, md5String) VALUES (?, ?, ?)", tableName];
+            [db executeUpdate:sqlString,fragmentModel.sortIndex, fragmentModel.remoteURL, fragmentModel.remoteURL];
+        }];
+        [db commit];
     }];
 }
 
