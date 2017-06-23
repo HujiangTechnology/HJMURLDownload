@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "M3U8SegmentInfo.h"
+#import "M3U8SegmentInfoList.h"
 //#import "HJMURLDownloadManager.h"
 
 @protocol HJMFragmentsDownloadManagerDelegate <NSObject>
@@ -15,11 +15,22 @@
 @required
 - (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData;
 
+@optional
+- (void)downloadTaskAddedToQueueWithIdentifer:(NSString *)identifier;
+
+- (void)downloadTaskBeginWithIdentifier:(NSString *)identifier;
+
+- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier;
+
+- (void)downloadTaskCompleteWithDirectoryPath:(NSString *)directoryPath identifier:(NSString *)identifier;
+
+- (void)downloadTaskCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
+
 @end
 
 @interface HJMFragmentsDownloadManager : NSObject
 
-@property (nonatomic, weak) id<HJMFragmentsDownloadManagerDelegate> delegate;
+@property (nonatomic, weak, readonly) id<HJMFragmentsDownloadManagerDelegate> delegate;
 @property (nonatomic, assign) BOOL isSupportBackgroundDownload;
 
 /**
@@ -43,6 +54,6 @@
  */
 - (instancetype)initBackgroundDownloaderWithIdentifier:(NSString *)identifier maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess;
 
-- (void)downloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragments originalUrl:(NSURL *)originalUrl progressBlock:(void(^)(CGFloat progress))progressBlock completionBlock:(void(^)(NSString *directoryPath))completionBlock errorBlock:(void(^)(NSError *))errorBlock;
+- (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments baseUrl:(NSURL *)baseUrl delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate;
 
 @end

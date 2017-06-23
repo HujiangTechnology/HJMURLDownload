@@ -76,6 +76,23 @@ static HJMFragmentDBManager *manager;
     }];
 }
 
+- (NSArray <M3U8SegmentInfo *> *)fragmentsModelWithCount:(NSInteger)count tableName:(NSString *)tableName {
+    __block NSMutableArray <M3U8SegmentInfo *> *fragments = [NSMutableArray array];
+    [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
+        NSString *sqlString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id ASC LIMIT %ld", tableName, count];
+        FMResultSet *resultSet = nil;
+        resultSet = [db executeQuery:sqlString];
+        while ([resultSet next]) {
+            int index = [resultSet intForColumn:@"id"];
+            NSString *url = [resultSet stringForColumn:@"url"];
+            NSString *md5String = [resultSet stringForColumn:@"md5String"];
+            M3U8SegmentInfo *fragment = [[M3U8SegmentInfo alloc] init];
+            [fragments addObject:fragment];
+        }
+    }];
+    return fragments;
+}
+
 - (M3U8SegmentInfo *)oneMoreFragmentModelInTable:(NSString *)tableName {
     __block M3U8SegmentInfo *fragmentModel = [[M3U8SegmentInfo alloc] init];
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
@@ -91,7 +108,7 @@ static HJMFragmentDBManager *manager;
     return fragmentModel;
 }
 
-- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName {
+- (void)insertFragmentModelArray:(NSMutableArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
         [db beginTransaction];
         [fragmentModels enumerateObjectsUsingBlock:^(id <HJMURLDownloadExItem> _Nonnull fragmentModel, NSUInteger idx, BOOL * _Nonnull stop) {

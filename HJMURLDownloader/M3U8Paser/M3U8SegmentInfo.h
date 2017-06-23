@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "HJMURLDownloadExItem.h"
 
 extern NSString *keyM3U8SegmentDuration;
 extern NSString *keyM3U8SegmentMediaURLString;
@@ -17,12 +18,12 @@ extern NSString *keyM3U8SegmentMediaURLString;
  @abstract This is the class indicates #EXTINF:<duration>,<title> + media in m3u8 file
  */
 
-@interface M3U8SegmentInfo : NSObject
-<
-NSCopying,
-NSCoding
->
+@interface M3U8SegmentInfo : NSObject <HJMURLDownloadExItem, NSCopying, NSCoding>
 
+@property (strong, nonatomic) NSURL *remoteURL;
+@property (strong, nonatomic) NSString *identifier;
+@property (strong, nonatomic) NSString *relativePath;
+@property (nonatomic) BOOL isIgnoreResumeDataAfterCancel;
 @property (nonatomic, readonly) CGFloat duration;
 @property (nonatomic, readonly, copy) NSURL   *mediaURL;
 @property (nonatomic, assign) int index;

@@ -16,9 +16,11 @@
 
 - (void)createTableWithName:(NSString *)tableName;
 
+- (NSArray <M3U8SegmentInfo *> *)fragmentsModelWithCount:(NSInteger)count tableName:(NSString *)tableName;
+
 - (M3U8SegmentInfo *)oneMoreFragmentModelInTable:(NSString *)tableName;
 
-- (void)insertFragmentModelArray:(NSArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName;
+- (void)insertFragmentModelArray:(NSMutableArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName;
 
 - (void)removeFragmentModel:(id<HJMURLDownloadExItem>)fragmentModel inTable:(NSString *)tableName;
 

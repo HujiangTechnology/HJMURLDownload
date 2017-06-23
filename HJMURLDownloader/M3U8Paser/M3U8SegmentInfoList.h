@@ -16,7 +16,9 @@ NSCoding
 >
 
 @property (nonatomic, assign ,readonly) NSUInteger count;
-@property (nonatomic, strong) NSMutableArray *segmentInfoList;
+@property (nonatomic, strong) NSMutableArray <M3U8SegmentInfo *> *segmentInfoList;
+@property (nonatomic, copy) NSString *originalUrl;
+@property (nonatomic, copy) NSString *identifier;
 
 - (void)addSegementInfo:(M3U8SegmentInfo *)segment;
 - (M3U8SegmentInfo *)segmentInfoAtIndex:(NSUInteger)index;

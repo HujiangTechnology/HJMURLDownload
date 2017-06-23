@@ -7,13 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "M3U8SegmentInfoList.h"
+
+@protocol HJMFragmentProducerDelegate <NSObject>
+
+@required
+- (void)fragmentListHasRunOutWithIdentifier:(NSString *)identifier;
+
+@optional
+- (void)allFragmentListsHaveRunOut;
+
+@end
 
 @interface HJMFragmentProducer : NSObject
 
-+ (instancetype)FragmentProducerWithFragmentArray:(NSArray *)fragmentArray;
+@property (nonatomic, weak) id<HJMFragmentProducerDelegate> delegate;
 
-- (NSArray *)moreFragmentsWithLimitedCount:(NSInteger)limitedCount;
+/**
+  下一个下载队列的标示
+ */
+- (M3U8SegmentInfoList *)nextFragmentList;
 
-- (id)oneMoreFragment;
+- (void)addFragmentsArray:(M3U8SegmentInfoList *)fragmentArray;
+
+- (NSArray <M3U8SegmentInfo *> *)fragmentsWithIdentifier:(NSString *)identifier originalArray:(NSArray <M3U8SegmentInfo *> *)originalArray limitedCount:(NSInteger)limitedCount;
+
+- (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 
 @end
