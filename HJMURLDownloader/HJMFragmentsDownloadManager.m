@@ -24,10 +24,6 @@
 @property (nonatomic, assign) NSInteger fragmentCount;
 
 /**
- 重试次数，key为object的identifer，value为已经重试的次数
- */
-@property (nonatomic, strong) NSMutableDictionary *retryDictionary;
-/**
  下载队列标识，也用作数据库表名
  */
 //@property (nonatomic, copy) NSString *tableName;
@@ -65,7 +61,6 @@ static HJMFragmentsDownloadManager *manager;
 
 - (void)setupWithConcurrentCount:(NSInteger)concurrentCount {
     self.concurrentCount = concurrentCount;
-    self.retryDictionary = [NSMutableDictionary dictionary];
     self.producer = [[HJMFragmentProducer alloc] init];
     self.producer.delegate = self;
     self.consumer = [[HJMFragmentConsumer alloc] initWithLimitedConcurrentCount:concurrentCount isSupportBackground:NO backgroundIdentifier:nil];

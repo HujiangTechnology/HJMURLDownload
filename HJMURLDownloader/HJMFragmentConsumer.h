@@ -16,6 +16,8 @@
 
 - (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier;
 
+- (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
+
 @end
 
 @interface HJMFragmentConsumer : NSObject

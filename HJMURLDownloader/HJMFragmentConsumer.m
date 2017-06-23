@@ -18,9 +18,21 @@
 @property (nonatomic, copy) NSString *currentDownloadIdentifier;
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
+/**
+ 重试次数，key为data task的url，value为已经重试的次数
+ */
+@property (nonatomic, strong) NSMutableDictionary *retryDictionary;
+
 @end
 
 @implementation HJMFragmentConsumer
+
+- (NSMutableDictionary *)retryDictionary {
+    if (!_retryDictionary) {
+        _retryDictionary = [NSMutableDictionary dictionary];
+    }
+    return _retryDictionary;
+}
 
 - (NSMutableDictionary *)completionHandlerDictionary {
     if (!_completionHandlerDictionary) {
@@ -60,24 +72,21 @@
     [self.completionHandlerDictionary setObject:aCompletionHandler forKey:aBackgroundURLSessionIdentifier];
 }
 
-#pragma mark - HJMURLDownloadHandlerDelegate
-
-- (void)downloadURLDownloadItem:(id<HJMURLDownloadExItem>)item didFailWithError:(NSError *)error {
-//    NSNumber *retryTimes = self.retryDictionary[item.identifier];
-//    if ([retryTimes intValue] < 3) {
-//        [self.downloadManager addURLDownloadItem:item];
-//        self.retryDictionary[item.identifier] = @([retryTimes intValue] + 1);
-//    } else {
-//        // 停止所有下载
-//        [self.downloadManager cancelAllDownloads];
-//        // 错误抛出去
-//        
-//    }
-}
-
 #pragma mark - NSURLSessionTaskDelegate
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
+    NSNumber *retryTimes = self.retryDictionary[task.originalRequest.URL.absoluteString];
+    // get the data task's original url
+    if ([retryTimes intValue] < 3) {
+        // 记录下来，重试
+        [[self.session downloadTaskWithURL:task.originalRequest.URL] resume];
+        NSString *urlString = task.originalRequest.URL.absoluteString;
+        self.retryDictionary[urlString] = @([retryTimes intValue] +1);
+    } else {
+        [self.delegate downloadTaskDidCompleteWithError:error identifier:self.currentDownloadIdentifier];
+        
+    }
+    
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
