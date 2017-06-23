@@ -119,9 +119,9 @@ static HJMFragmentDBManager *manager;
     }];
 }
 
-- (void)removeFragmentModel:(id<HJMURLDownloadExItem>)fragmentModel inTable:(NSString *)tableName {
+- (void)removeFragmentModelWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE id = %ld", tableName, fragmentModel.sortIndex];
+        NSString *sqlString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE md5String = %@", tableName, fragmentIdentifier];
         [db executeUpdate:sqlString];
     }];
     

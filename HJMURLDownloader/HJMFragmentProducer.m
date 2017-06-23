@@ -66,25 +66,10 @@
         [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
         return nil;
     }
-    
-//    
-//    
-//    
-//    __block M3U8SegmentInfo *fragment = nil;
-//    __block M3U8SegmentInfoList *currentFragmentList = nil;
-//    [self.fragmentListArray enumerateObjectsUsingBlock:^(M3U8SegmentInfoList * _Nonnull fragmentList, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if ([fragmentList.identifier isEqualToString:fragmentArrayIdentifier]) {
-//            fragment = [fragmentList.segmentInfoList firstObject];
-//            *stop = YES;
-//        }
-//    }];
-//    if (!fragment) {
-//        if ([self.delegate respondsToSelector:@selector(currentFragmentListHasRunOutWithIdentifier:)]) {
-//        }
-//    } else {
-//        [currentFragmentList.segmentInfoList removeObject:fragment];
-//    }
-//    return fragment;
+}
+
+- (void)removeFragmentOutofDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier {
+    [[HJMFragmentDBManager sharedManager] removeFragmentModelWithIdentifier:fragmentIdentifer inTable:identifier];
 }
 
 - (void)insertFragmentArrayToDatabase:(M3U8SegmentInfoList *)fragmentList {

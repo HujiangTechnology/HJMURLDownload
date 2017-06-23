@@ -84,16 +84,21 @@
         self.retryDictionary[urlString] = @([retryTimes intValue] +1);
     } else {
         [self.delegate downloadTaskDidCompleteWithError:error identifier:self.currentDownloadIdentifier];
-        
     }
-    
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
-    
+    // get the md5 value of fragment
+    NSString *md5 = @"";
+    [self.delegate oneFragmentDownloadedWithFragmentIdentifier:md5 identifier:self.currentDownloadIdentifier];
+    M3U8SegmentInfo *fragment = [self.delegate oneMoreFragmentWithIdentifier:self.currentDownloadIdentifier];
+    if (fragment) {
+        // 下载下一个fragment
+        [self startToDownloadFragmentArray:@[fragment] arrayIdentifer:self.currentDownloadIdentifier];
+    }
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {

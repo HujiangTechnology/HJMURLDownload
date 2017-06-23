@@ -22,7 +22,7 @@
 
 - (void)insertFragmentModelArray:(NSMutableArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName;
 
-- (void)removeFragmentModel:(id<HJMURLDownloadExItem>)fragmentModel inTable:(NSString *)tableName;
+- (void)removeFragmentModelWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName;
 
 - (NSInteger)rowCountInTable:(NSString *)tableName;
 

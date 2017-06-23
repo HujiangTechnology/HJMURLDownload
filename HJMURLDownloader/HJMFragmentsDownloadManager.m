@@ -17,8 +17,6 @@
 
 @property (nonatomic, strong) HJMFragmentProducer *producer;
 @property (nonatomic, strong) HJMFragmentConsumer *consumer;
-@property (nonatomic, assign) NSInteger concurrentCount;
-
 
 @property (nonatomic, strong) NSMutableArray <HJMFragmentCallBackModel *> *callbackModelArray;
 @property (nonatomic, assign) NSInteger fragmentCount;
@@ -31,14 +29,20 @@
 @end
 
 @implementation HJMFragmentsDownloadManager
-static HJMFragmentsDownloadManager *manager;
 
 + (instancetype)defaultManager {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-//        manager = [[HJMFragmentsDownloadManager alloc] init];
-    });
-    return manager;
+    static HJMFragmentsDownloadManager *singletonInstance;
+    if (!singletonInstance) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            singletonInstance = [[super allocWithZone:NULL] init];
+        });
+    }
+    return singletonInstance;
+}
+
++ (id)allocWithZone:(NSZone *)zone {
+    return [self defaultManager];
 }
 
 - (instancetype)init {
@@ -137,8 +141,21 @@ static HJMFragmentsDownloadManager *manager;
     return [self.producer oneMoreFragmentWithIdentifier:identifier];
 }
 
-- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier {
-    [self.delegate downloadTaskReachProgress:progress identifier:identifier];
+- (void)oneFragmentDownloadedWithIdentifier:(NSString *)identifier {
+    // get the
+}
+
+- (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier {
+    // remove the record at database
+    [self.producer removeFragmentOutofDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
+}
+
+//- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier {
+//    [self.delegate downloadTaskReachProgress:progress identifier:identifier];
+//}
+
+- (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
+
 }
 
 @end

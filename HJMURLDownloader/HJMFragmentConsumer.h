@@ -14,7 +14,7 @@
 @required
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 
-- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier;
+- (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier;
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
 
@@ -31,9 +31,5 @@
 - (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler;
 
 - (void)startToDownloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragmentArray arrayIdentifer:(NSString *)identifier;
-//
-//+ (instancetype)fragmentConsumerWithFragmentArray:(NSArray *)fragmentArray;
-//
-//- (void)startToDownloadWithLimitedCounte:(NSInteger)limitedCount;
 
 @end

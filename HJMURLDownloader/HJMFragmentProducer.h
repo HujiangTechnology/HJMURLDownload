@@ -34,4 +34,6 @@
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 
+- (void)removeFragmentOutofDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
+
 @end
