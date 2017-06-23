@@ -12,7 +12,6 @@
 #import "HJMFragmentProducer.h"
 #import "M3U8SegmentInfoList.h"
 #import "HJMFragmentsDownloadManager.h"
-//#import "HJMURLDownloadObject.h"
 
 @interface HJMFragmentsDownloadManager () <HJMFragmentProducerDelegate, HJMFragmentConsumerDelegate>
 
@@ -69,7 +68,7 @@ static HJMFragmentsDownloadManager *manager;
     self.retryDictionary = [NSMutableDictionary dictionary];
     self.producer = [[HJMFragmentProducer alloc] init];
     self.producer.delegate = self;
-    self.consumer = [[HJMFragmentConsumer alloc] initWithLimitedConcurrentCount:concurrentCount];
+    self.consumer = [[HJMFragmentConsumer alloc] initWithLimitedConcurrentCount:concurrentCount isSupportBackground:NO backgroundIdentifier:nil];
     self.consumer.delegate = self;
 }
 
@@ -116,13 +115,15 @@ static HJMFragmentsDownloadManager *manager;
     }
 }
 
-//- (void)startToDownloadNextFragmentArray:(NSArray *)
+- (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler {
+    [self.consumer handleEventsForBackgroundURLSession:aBackgroundURLSessionIdentifier completionHandler:aCompletionHandler];
+}
 
 #pragma mark HJMFragmentProducerDelegate
 
 - (void)fragmentListHasRunOutWithIdentifier:(NSString *)identifier {
     if ([self.delegate respondsToSelector:@selector(downloadTaskCompleteWithDirectoryPath:identifier:)]) {
-        [self.delegate downloadTaskCompleteWithDirectoryPath:<#?#>identifier:<#?#>];
+        [self.delegate downloadTaskCompleteWithDirectoryPath:nil identifier:nil];
     }
     // 队列下载完成了，将记录的delegate移除
     [self removeRecordFromCallbackArrayWithIdentifier:identifier];

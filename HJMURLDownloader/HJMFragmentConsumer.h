@@ -24,7 +24,9 @@
 
 @property (nonatomic, assign, readonly) BOOL isBusy;
 
-- (instancetype)initWithLimitedConcurrentCount:(NSInteger)count;
+- (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier;
+
+- (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler;
 
 - (void)startToDownloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragmentArray arrayIdentifer:(NSString *)identifier;
 //

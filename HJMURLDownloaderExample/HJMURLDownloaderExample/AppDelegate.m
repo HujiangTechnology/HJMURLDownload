@@ -10,6 +10,7 @@
 #import <HJMURLDownload.h>
 #import <HJMURLDownloader/HJMDownloadCoreDataManager.h>
 #import "HJMURLDownloaderInstance.h"
+#import <HJMURLDownloader/HJMFragmentsDownloadManager.h>
 
 @interface AppDelegate ()
 
@@ -20,6 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [HJMURLDownloaderInstance sharedInstance];
+    [HJMFragmentsDownloadManager defaultManager];
     return YES;
 }
 // iOS 7

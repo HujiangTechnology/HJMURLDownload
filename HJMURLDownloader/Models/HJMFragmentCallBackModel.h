@@ -14,7 +14,7 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate;
 
-@property (nonatomic, copy) NSString *identifier;
-@property (nonatomic, weak) id<HJMFragmentsDownloadManagerDelegate> delegate;
+@property (nonatomic, copy, readonly) NSString *identifier;
+@property (nonatomic, weak, readonly) id<HJMFragmentsDownloadManagerDelegate> delegate;
 
 @end

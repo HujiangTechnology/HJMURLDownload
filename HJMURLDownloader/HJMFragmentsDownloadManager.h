@@ -56,4 +56,6 @@
 
 - (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments baseUrl:(NSURL *)baseUrl delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate;
 
+- (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler;
+
 @end
