@@ -74,7 +74,7 @@
     
     for (M3U8SegmentInfo *segmentInfo in _segmentInfoList) {
         [m3u8String appendString:[NSString stringWithFormat:@"#EXTINF:%.2f,\n", segmentInfo.duration]];
-        [m3u8String appendString:[NSString stringWithFormat:@"%@\n", segmentInfo.mediaURL.absoluteString]];
+        [m3u8String appendString:[NSString stringWithFormat:@"%@\n", segmentInfo.mediaURLString]];
     }
     [m3u8String appendString:@"#EXT-X-ENDLIST\n"];
     

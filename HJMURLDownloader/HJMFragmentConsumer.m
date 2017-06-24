@@ -10,12 +10,12 @@
 #import "HJMFragmentDBManager.h"
 #import "M3U8Parser.h"
 #import "M3U8SegmentInfoList.h"
+#import "NSString+HJString.h"
 
 @interface HJMFragmentConsumer () <NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, assign) NSInteger limitedCount;
-@property (nonatomic, copy) NSString *currentDownloadIdentifier;
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
 /**
@@ -41,6 +41,10 @@
     return _completionHandlerDictionary;
 }
 
+- (NSString *)currentDownloadIdentifier {
+    return [self.delegate currentDownloadingIdentifier];
+}
+
 - (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier {
     if (self = [super init]) {
         self.limitedCount = count;
@@ -60,8 +64,10 @@
 }
 
 - (void)startToDownloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragmentArray arrayIdentifer:(NSString *)identifier {
+    NSString *baseUrlString = @"http://record-hls.server.cctalk.com/";
     for (M3U8SegmentInfo *fragment in fragmentArray) {
-        [[self.session downloadTaskWithURL:nil] resume];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", baseUrlString, fragment.mediaURLString];
+        [[self.session downloadTaskWithURL:[NSURL URLWithString:urlString]] resume];
     }
 }
 
@@ -75,15 +81,18 @@
 #pragma mark - NSURLSessionTaskDelegate
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-    NSNumber *retryTimes = self.retryDictionary[task.originalRequest.URL.absoluteString];
-    // get the data task's original url
-    if ([retryTimes intValue] < 3) {
-        // 记录下来，重试
-        [[self.session downloadTaskWithURL:task.originalRequest.URL] resume];
-        NSString *urlString = task.originalRequest.URL.absoluteString;
-        self.retryDictionary[urlString] = @([retryTimes intValue] +1);
-    } else {
-        [self.delegate downloadTaskDidCompleteWithError:error identifier:self.currentDownloadIdentifier];
+    NSLog(@"%s", __func__);
+    if (error) {
+        NSNumber *retryTimes = self.retryDictionary[task.originalRequest.URL.absoluteString];
+        // get the data task's original url
+        if ([retryTimes intValue] < 3) {
+            // 记录下来，重试
+            [[self.session downloadTaskWithURL:task.originalRequest.URL] resume];
+            NSString *urlString = task.originalRequest.URL.absoluteString;
+            self.retryDictionary[urlString] = @([retryTimes intValue] +1);
+        } else {
+            [self.delegate downloadTaskDidCompleteWithError:error identifier:self.currentDownloadIdentifier];
+        }
     }
 }
 
@@ -91,8 +100,9 @@
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
+    NSLog(@"%s", __func__);
     // get the md5 value of fragment
-    NSString *md5 = @"";
+    NSString *md5 = [downloadTask.originalRequest.URL.lastPathComponent md5];
     [self.delegate oneFragmentDownloadedWithFragmentIdentifier:md5 identifier:self.currentDownloadIdentifier];
     M3U8SegmentInfo *fragment = [self.delegate oneMoreFragmentWithIdentifier:self.currentDownloadIdentifier];
     if (fragment) {
@@ -102,6 +112,7 @@ didFinishDownloadingToURL:(NSURL *)location {
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {
+    NSLog(@"%s", __func__);
     // 执行存储的block，告诉系统现在可以杀死app了。
     void (^backgroundBlock)() = self.completionHandlerDictionary[session.configuration.identifier];
     if (backgroundBlock) {

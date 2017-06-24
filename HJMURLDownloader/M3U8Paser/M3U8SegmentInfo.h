@@ -18,17 +18,14 @@ extern NSString *keyM3U8SegmentMediaURLString;
  @abstract This is the class indicates #EXTINF:<duration>,<title> + media in m3u8 file
  */
 
-@interface M3U8SegmentInfo : NSObject <HJMURLDownloadExItem, NSCopying, NSCoding>
+@interface M3U8SegmentInfo : NSObject <NSCopying, NSCoding>
 
-@property (strong, nonatomic) NSURL *remoteURL;
-@property (strong, nonatomic) NSString *identifier;
-@property (strong, nonatomic) NSString *relativePath;
-@property (nonatomic) BOOL isIgnoreResumeDataAfterCancel;
-@property (nonatomic, readonly) CGFloat duration;
-@property (nonatomic, readonly, copy) NSURL   *mediaURL;
+@property (nonatomic, assign) CGFloat duration;
+@property (nonatomic, copy) NSString   *mediaURLString;
 @property (nonatomic, assign) int index;
+@property (nonatomic, copy) NSString *md5String;
 
 - (id)initWithDictionary:(NSDictionary *)params;
-- (NSDictionary *)dictionaryValue;
+//- (NSDictionary *)dictionaryValue;
 
 @end

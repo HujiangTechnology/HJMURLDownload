@@ -68,7 +68,7 @@ static HJMFragmentDBManager *manager;
         NSString *sqlString = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(\
                                id INTEGER PRIMARY KEY NOT NULL,\
                                url TEXT,\
-                               md5String VARCHAR(255);", tableName];
+                               md5String VARCHAR(255));", tableName];
         BOOL createSuccess = [db executeUpdate:sqlString];
         if (!createSuccess) {
             [db rollback];
@@ -87,8 +87,12 @@ static HJMFragmentDBManager *manager;
             NSString *url = [resultSet stringForColumn:@"url"];
             NSString *md5String = [resultSet stringForColumn:@"md5String"];
             M3U8SegmentInfo *fragment = [[M3U8SegmentInfo alloc] init];
+            fragment.index = index;
+            fragment.mediaURLString = url;
+            fragment.md5String = md5String;
             [fragments addObject:fragment];
         }
+        [resultSet close];
     }];
     return fragments;
 }
@@ -103,25 +107,27 @@ static HJMFragmentDBManager *manager;
             int index = [resultSet intForColumn:@"id"];
             NSString *url = [resultSet stringForColumn:@"url"];
             NSString *md5String = [resultSet stringForColumn:@"md5String"];
+            fragmentModel.index = index;
+            fragmentModel.mediaURLString = url;
+            fragmentModel.md5String = md5String;
         }
+        [resultSet close];
     }];
     return fragmentModel;
 }
 
-- (void)insertFragmentModelArray:(NSMutableArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName {
-    [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        [db beginTransaction];
-        [fragmentModels enumerateObjectsUsingBlock:^(id <HJMURLDownloadExItem> _Nonnull fragmentModel, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)insertFragmentModelArray:(NSMutableArray <M3U8SegmentInfo *> *)fragmentModels toTable:(NSString *)tableName {
+    [self.databaseQueue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+        [fragmentModels enumerateObjectsUsingBlock:^(M3U8SegmentInfo * _Nonnull fragmentModel, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(id, url, md5String) VALUES (?, ?, ?)", tableName];
-            [db executeUpdate:sqlString,fragmentModel.sortIndex, fragmentModel.remoteURL, fragmentModel.remoteURL];
+            [db executeUpdate:sqlString, @(fragmentModel.index), fragmentModel.mediaURLString, fragmentModel.md5String];
         }];
-        [db commit];
     }];
 }
 
 - (void)removeFragmentModelWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE md5String = %@", tableName, fragmentIdentifier];
+        NSString *sqlString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE md5String = '%@';", tableName, fragmentIdentifier];
         [db executeUpdate:sqlString];
     }];
     

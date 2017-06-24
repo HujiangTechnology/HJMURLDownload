@@ -80,7 +80,7 @@
         }
     } else {
         // 从producer拿数据开始下载
-        NSArray <M3U8SegmentInfo *> *fragmentsToDownload = [self.producer fragmentsWithIdentifier:fragments.identifier originalArray:fragments.segmentInfoList limitedCount:self.concurrentCount];
+        NSArray <M3U8SegmentInfo *> *fragmentsToDownload = [self.producer fragmentsWithOriginalArray:fragments limitedCount:self.concurrentCount];
         [self.consumer startToDownloadFragmentArray:fragmentsToDownload arrayIdentifer:fragments.identifier];
         if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
             [self.delegate downloadTaskBeginWithIdentifier:fragments.identifier];
@@ -143,6 +143,10 @@
     }
 }
 
+- (NSString *)currentDownloadingIdentifier {
+    return self.producer.currentDownloadingIdentifier;
+}
+
 - (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier {
     // remove the record at database
     [self.producer removeFragmentOutofDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
@@ -151,9 +155,5 @@
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
 
 }
-
-#pragma mark - NSNotification
-
-
 
 @end

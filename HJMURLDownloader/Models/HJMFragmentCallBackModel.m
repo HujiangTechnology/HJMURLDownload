@@ -10,4 +10,12 @@
 
 @implementation HJMFragmentCallBackModel
 
+- (instancetype)initWithIdentifier:(NSString *)identifier delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
+    if (self = [super init]) {
+        self->_identifier = identifier;
+        self->_delegate = delegate;
+    }
+    return self;
+}
+
 @end

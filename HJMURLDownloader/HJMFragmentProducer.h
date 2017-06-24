@@ -22,6 +22,7 @@
 @interface HJMFragmentProducer : NSObject
 
 @property (nonatomic, weak) id<HJMFragmentProducerDelegate> delegate;
+@property (nonatomic, copy, readonly) NSString *currentDownloadingIdentifier;
 
 - (BOOL)isTableExistInDatabaseWith:(NSString *)identifier;
 
@@ -36,7 +37,7 @@
 
 - (void)addFragmentsArray:(M3U8SegmentInfoList *)fragmentArray;
 
-- (NSArray <M3U8SegmentInfo *> *)fragmentsWithIdentifier:(NSString *)identifier originalArray:(NSArray <M3U8SegmentInfo *> *)originalArray limitedCount:(NSInteger)limitedCount;
+- (NSArray <M3U8SegmentInfo *> *)fragmentsWithOriginalArray:(M3U8SegmentInfoList *)originalArray limitedCount:(NSInteger)limitedCount;
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 

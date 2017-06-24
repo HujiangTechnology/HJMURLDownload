@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "M3U8SegmentInfo.h"
-#import "HJMURLDownloadExItem.h"
 
 @interface HJMFragmentDBManager : NSObject
 
@@ -20,7 +19,7 @@
 
 - (M3U8SegmentInfo *)oneMoreFragmentModelInTable:(NSString *)tableName;
 
-- (void)insertFragmentModelArray:(NSMutableArray <HJMURLDownloadExItem> *)fragmentModels toTable:(NSString *)tableName;
+- (void)insertFragmentModelArray:(NSMutableArray <M3U8SegmentInfo *> *)fragmentModels toTable:(NSString *)tableName;
 
 - (void)removeFragmentModelWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName;
 

@@ -18,6 +18,8 @@
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
 
+- (NSString *)currentDownloadingIdentifier;
+
 @end
 
 @interface HJMFragmentConsumer : NSObject

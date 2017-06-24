@@ -36,6 +36,8 @@
     M3U8SegmentInfoList *list = [self.pendingFragmentListArray firstObject];
     if (list) {
         // 到这里说明要下载下一个队列了，将队列写入数据库
+        self.currentFragmentArrayCount = list.segmentInfoList.count;
+        self.currentFragmentArrayCount = list.identifier;
         [self insertFragmentArrayToDatabase:list];
         self.currentFragmentArrayCount = list.segmentInfoList.count;
         // 已经入库，将它从pending array中移除
@@ -61,16 +63,17 @@
     [self.pendingFragmentListArray addObject:fragmentArray];
 }
 
-- (NSArray <M3U8SegmentInfo *> *)fragmentsWithIdentifier:(NSString *)identifier originalArray:(M3U8SegmentInfoList *)originalArray limitedCount:(NSInteger)limitedCount {
+- (NSArray <M3U8SegmentInfo *> *)fragmentsWithOriginalArray:(M3U8SegmentInfoList *)originalArray limitedCount:(NSInteger)limitedCount {
     // 到这里表示开始下载了 ，既然开始下载，就应该把整个队在数据库中做记录
     self.currentFragmentArrayCount = originalArray.segmentInfoList.count;
+    self->_currentDownloadingIdentifier = originalArray.identifier;
 
     [self insertFragmentArrayToDatabase:originalArray];
     
     // 从数据库中拿数据给返回给manager
-    NSArray *fragmentsToDownload = [self.dbManager fragmentsModelWithCount:limitedCount tableName:identifier];
+    NSArray *fragmentsToDownload = [self.dbManager fragmentsModelWithCount:limitedCount tableName:originalArray.identifier];
     if (fragmentsToDownload.count == 0) {
-        [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
+        [self.delegate fragmentListHasRunOutWithIdentifier:originalArray.identifier];
     }
     return fragmentsToDownload;
 }
@@ -91,10 +94,6 @@
 - (void)insertFragmentArrayToDatabase:(M3U8SegmentInfoList *)fragmentList {
     if (![self.dbManager isTableExist:fragmentList.identifier]) {
         // 没有这个表，以identifier为表名，将所有的下载队列记录进表
-        //        NSString *path = [[NSBundle mainBundle] pathForResource:@"localM3u8" ofType:@"txt"];
-        //        NSString *m3u8String = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-        //        M3U8SegmentInfoList *m3u8InfoList = [M3U8Parser m3u8SegmentInfoListFromPlanString:m3u8String];
-        //        m3u8InfoList.identifier = identifier;
         [self.dbManager createTableWithName:fragmentList.identifier];
         [self.dbManager insertFragmentModelArray:fragmentList.segmentInfoList toTable:fragmentList.identifier];
         // 已经将数组入库，将它从pending array中移除

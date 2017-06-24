@@ -9,6 +9,7 @@
 #import "NSString+m3u8.h"
 #import "M3U8SegmentInfo.h"
 #import "M3U8SegmentInfoList.h"
+#import "NSString+HJString.h"
 
 @implementation NSString (m3u8)
 
@@ -73,6 +74,7 @@
         
         M3U8SegmentInfo *segment = [[M3U8SegmentInfo alloc] initWithDictionary:params];
         segment.index = index;
+        segment.md5String = [segment.mediaURLString.lastPathComponent md5];
         [segmentInfoList addSegementInfo:segment];
         index++;
 		segmentRange = [remainingSegments rangeOfString:extinfoString];
