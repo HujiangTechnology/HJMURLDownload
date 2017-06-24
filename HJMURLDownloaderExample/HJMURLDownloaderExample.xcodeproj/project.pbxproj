@@ -19,6 +19,8 @@
 		164867831A5929760032794E /* HJMZipWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 164867821A5929760032794E /* HJMZipWrapper.m */; };
 		167C21C31A5292BE0061C69B /* LessonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 167C21C21A5292BE0061C69B /* LessonItem.m */; };
 		16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */; };
+		85E802251EFE3BEB0094D893 /* localM3u8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 85E802241EFE3BEA0094D893 /* localM3u8.txt */; };
+		85E802281EFE3D870094D893 /* FragmentDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */; };
 		E48CC784E042B686C9F06439 /* libPods-HJMURLDownloaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */; };
 		F32F9BA81A6397950050E109 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F32F9BA71A6397950050E109 /* TabBarViewController.m */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,9 @@
 		1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HJMURLDownloaderExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85E802241EFE3BEA0094D893 /* localM3u8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = localM3u8.txt; sourceTree = "<group>"; };
+		85E802261EFE3D870094D893 /* FragmentDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FragmentDownloadViewController.h; sourceTree = "<group>"; };
+		85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FragmentDownloadViewController.m; sourceTree = "<group>"; };
 		87DDB217D01D93F22F441661 /* Pods-HJMURLDownloaderExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExampleTests/Pods-HJMURLDownloaderExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		9F3FD160715E4785879F5822 /* Pods-HJMURLDownloaderExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExample/Pods-HJMURLDownloaderExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AE800D1F3897530D430BC6A5 /* libPods-HJMURLDownloaderExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HJMURLDownloaderExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,8 +135,11 @@
 				16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */,
 				163FC1641A495FB100493899 /* ViewController.h */,
 				163FC1651A495FB100493899 /* ViewController.m */,
+				85E802261EFE3D870094D893 /* FragmentDownloadViewController.h */,
+				85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */,
 				167C21C11A5292BE0061C69B /* LessonItem.h */,
 				167C21C21A5292BE0061C69B /* LessonItem.m */,
+				85E802241EFE3BEA0094D893 /* localM3u8.txt */,
 				163FC1671A495FB100493899 /* Main.storyboard */,
 				163FC1B31A4AB69000493899 /* DownloadTableViewController.h */,
 				163FC1B41A4AB69000493899 /* DownloadTableViewController.m */,
@@ -271,6 +279,7 @@
 				163FC1691A495FB100493899 /* Main.storyboard in Resources */,
 				163FC16E1A495FB100493899 /* LaunchScreen.xib in Resources */,
 				163FC16B1A495FB100493899 /* Images.xcassets in Resources */,
+				85E802251EFE3BEB0094D893 /* localM3u8.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				163FC1661A495FB100493899 /* ViewController.m in Sources */,
+				85E802281EFE3D870094D893 /* FragmentDownloadViewController.m in Sources */,
 				163FC1631A495FB100493899 /* AppDelegate.m in Sources */,
 				163FC1601A495FB100493899 /* main.m in Sources */,
 				16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */,

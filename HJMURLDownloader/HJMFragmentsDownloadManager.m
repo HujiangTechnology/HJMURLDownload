@@ -10,8 +10,9 @@
 #import "HJMFragmentConsumer.h"
 #import "HJMFragmentDBManager.h"
 #import "HJMFragmentProducer.h"
-#import "M3U8SegmentInfoList.h"
 #import "HJMFragmentsDownloadManager.h"
+#import "HJMURLDownload.h"
+#import "M3U8SegmentInfoList.h"
 
 @interface HJMFragmentsDownloadManager () <HJMFragmentProducerDelegate, HJMFragmentConsumerDelegate>
 
@@ -19,7 +20,6 @@
 @property (nonatomic, strong) HJMFragmentConsumer *consumer;
 
 @property (nonatomic, strong) NSMutableArray <HJMFragmentCallBackModel *> *callbackModelArray;
-@property (nonatomic, assign) NSInteger fragmentCount;
 
 /**
  下载队列标识，也用作数据库表名
@@ -46,32 +46,27 @@
 }
 
 - (instancetype)init {
-    return [self initStandardDownloaderWithMaxConcurrentDownloads:4];
-}
-
-- (instancetype)initStandardDownloaderWithMaxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount {
     if (self = [super init]) {
-        [self setupWithConcurrentCount:aMaxConcurrentFileDownloadsCount];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(changeWiFiAccess:)
+                                                     name:kHJMURLDownloaderOnlyWiFiAccessNotification
+                                                   object:nil];
+        self.producer = [[HJMFragmentProducer alloc] init];
+        self.producer.delegate = self;
+        self.consumer = [[HJMFragmentConsumer alloc] init];
+        self.consumer.delegate = self;
+        self.concurrentCount = 4;
+        self.onlyWiFiAccess = NO;
+        self.supportBackgroundDownload = YES;
     }
     return self;
 }
 
-- (instancetype)initBackgroundDownloaderWithIdentifier:(NSString *)identifier maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount OnlyWiFiAccess:(BOOL)isOnlyWiFiAccess {
-    if (self = [super init]) {
-        [self setupWithConcurrentCount:aMaxConcurrentFileDownloadsCount];
-    }
-    return self;
+- (BOOL)canResumeDownloadWithIdentifier:(NSString *)identifier {
+    return [self.producer isTableExistInDatabaseWith:identifier];
 }
 
-- (void)setupWithConcurrentCount:(NSInteger)concurrentCount {
-    self.concurrentCount = concurrentCount;
-    self.producer = [[HJMFragmentProducer alloc] init];
-    self.producer.delegate = self;
-    self.consumer = [[HJMFragmentConsumer alloc] initWithLimitedConcurrentCount:concurrentCount isSupportBackground:NO backgroundIdentifier:nil];
-    self.consumer.delegate = self;
-}
-
-- (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments baseUrl:(NSURL *)baseUrl delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
+- (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
     // 把delegate记录下来供以后调用
     HJMFragmentCallBackModel *model = [[HJMFragmentCallBackModel alloc] initWithIdentifier:fragments.identifier delegate:delegate];
     [self.callbackModelArray addObject:model];
@@ -130,7 +125,7 @@
     // 一个队列的fragments已经下载完了，试着去下载下一个队列
     M3U8SegmentInfoList *fragmentsArray = [self.producer nextFragmentList];
     if (fragmentsArray.count) {
-        // producer里面有下一个队列的记录，consumer直接去下载，produce会将这个下载记入数据库
+        // producer里面有下一个队列的记录，consumer直接去下载，producer会将这个下载记入数据库
         [self.consumer startToDownloadFragmentArray:[fragmentsArray.segmentInfoList subarrayWithRange:NSMakeRange(0, MIN(self.concurrentCount, fragmentsArray.count))] arrayIdentifer:fragmentsArray.identifier];
     }
 }
@@ -142,7 +137,10 @@
 }
 
 - (void)oneFragmentDownloadedWithIdentifier:(NSString *)identifier {
-    // get the
+    NSInteger leftFragmentCount = [self.producer leftFragmentCountWithIdentifier:identifier];
+    if ([self.delegate respondsToSelector:@selector(downloadTaskReachProgress:identifier:)]) {
+        [self.delegate downloadTaskReachProgress:(CGFloat)leftFragmentCount / [self.producer totalCountForCurrentFragmentList] identifier:identifier];
+    }
 }
 
 - (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier {
@@ -150,12 +148,12 @@
     [self.producer removeFragmentOutofDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
 }
 
-//- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier {
-//    [self.delegate downloadTaskReachProgress:progress identifier:identifier];
-//}
-
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
 
 }
+
+#pragma mark - NSNotification
+
+
 
 @end

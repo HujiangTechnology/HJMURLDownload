@@ -23,10 +23,16 @@
 
 @property (nonatomic, weak) id<HJMFragmentProducerDelegate> delegate;
 
+- (BOOL)isTableExistInDatabaseWith:(NSString *)identifier;
+
 /**
   下一个下载队列的标示
  */
 - (M3U8SegmentInfoList *)nextFragmentList;
+
+- (NSInteger)leftFragmentCountWithIdentifier:(NSString *)identifier;
+
+- (NSInteger)totalCountForCurrentFragmentList;
 
 - (void)addFragmentsArray:(M3U8SegmentInfoList *)fragmentArray;
 

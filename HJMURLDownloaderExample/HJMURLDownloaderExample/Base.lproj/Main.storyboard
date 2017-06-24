@@ -21,11 +21,31 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Saa-if-FTA"/>
                         <segue destination="DMy-EF-8fv" kind="relationship" relationship="viewControllers" id="pb5-hq-8U4"/>
+                        <segue destination="4B6-T7-A6X" kind="relationship" relationship="viewControllers" id="hvn-dg-iue"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2e-ta-0L0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-491" y="-177"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="XEV-ZE-E7d">
+            <objects>
+                <viewController id="4B6-T7-A6X" customClass="FragmentDownloadViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gdl-1E-46v"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ow4-aS-LIT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VjC-1o-6Uh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="NvY-wH-kRW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gXT-3Z-7dT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="436" y="-230"/>
         </scene>
         <!--DownloadLIst-->
         <scene sceneID="tne-QT-ifu">
@@ -181,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="241" y="-621"/>
+            <point key="canvasLocation" x="218" y="-864"/>
         </scene>
         <!--Download Manager-->
         <scene sceneID="abQ-8t-3pP">
@@ -198,7 +218,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow1-OG-H1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="255" y="106"/>
+            <point key="canvasLocation" x="332" y="367"/>
         </scene>
         <!--回顾视频-->
         <scene sceneID="zl0-nW-sdI">
@@ -217,7 +237,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y3E-Zd-fcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042" y="175"/>
+            <point key="canvasLocation" x="1169" y="367"/>
         </scene>
     </scenes>
 </document>

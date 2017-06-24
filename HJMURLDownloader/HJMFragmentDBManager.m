@@ -130,7 +130,7 @@ static HJMFragmentDBManager *manager;
 - (NSInteger)rowCountInTable:(NSString *)tableName {
     __block NSInteger count = 0;
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"SELECT COUNT(id) FROM %@", tableName];
+        NSString *sqlString = [NSString stringWithFormat:@"SELECT COUNT(md5String) FROM %@", tableName];
        count = [db intForQuery:sqlString];
     }];
     return count;
