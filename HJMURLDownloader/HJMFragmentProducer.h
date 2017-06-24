@@ -24,7 +24,7 @@
 @property (nonatomic, weak) id<HJMFragmentProducerDelegate> delegate;
 @property (nonatomic, copy, readonly) NSString *currentDownloadingIdentifier;
 
-- (BOOL)isTableExistInDatabaseWith:(NSString *)identifier;
+- (BOOL)isTableExistInDatabaseWithIdentifier:(NSString *)identifier;
 
 /**
   下一个下载队列的标示

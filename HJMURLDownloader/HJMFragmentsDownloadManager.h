@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "M3U8SegmentInfoList.h"
-//#import "HJMURLDownloadManager.h"
+#import "HJMFragmentConsumer.h"
 
 @protocol HJMFragmentsDownloadManagerDelegate <NSObject>
 
@@ -83,12 +83,11 @@
 + (instancetype)defaultManager;
 
 /**
- 是否可以继续上次的下载
+ fragmentList的下载状态
 
- @param identifier 任务标示
- @return YES 如果数据库中存在任务记录的话
+ @param identifier fragment list标示
  */
-- (BOOL)canResumeDownloadWithIdentifier:(NSString *)identifier;
+- (HJMFragmentDownloadStatus)fragmentListDownloadStatusWithIdentifier:(NSString *)identifier;
 
 /**
  下载任务，调用方法时无需对队列中的fragments是否已经下载进行过滤
@@ -96,6 +95,13 @@
  @param fragments 待下载的任务
  */
 - (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate;
+
+/**
+ 停止下载对应的任务
+
+ @param identifier 任务标示
+ */
+- (void)stopDownloadFragmentListWithIdentifier:(NSString *)identifier;
 
 /**
  处理background download任务完成时，系统对程序的唤起 https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/UsingNSURLSession.html

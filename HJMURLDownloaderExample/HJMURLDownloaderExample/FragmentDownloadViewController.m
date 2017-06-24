@@ -49,7 +49,7 @@
             [self downloadTaskWithIndex:button.tag];
             break;
         case 3:
-            [self stopTask];
+            [self stopTaskWithIndex:button.tag];
             break;
         case 4:
             // 恢复下载带有不同标示的任务
@@ -70,8 +70,9 @@
     [[HJMFragmentsDownloadManager defaultManager] downloadFragmentList:m3u8InfoList delegate:self];
 }
 
-- (void)stopTask {
-
+- (void)stopTaskWithIndex:(NSInteger)index {
+    NSString *identifier = self.identifierArray[index];
+    [[HJMFragmentsDownloadManager defaultManager] st]
 }
 
 - (void)resumeTaskWithIndex:(NSInteger)index {

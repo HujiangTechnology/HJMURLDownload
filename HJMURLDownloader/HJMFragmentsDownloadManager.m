@@ -7,7 +7,6 @@
 //
 
 #import "HJMFragmentCallBackModel.h"
-#import "HJMFragmentConsumer.h"
 #import "HJMFragmentDBManager.h"
 #import "HJMFragmentProducer.h"
 #import "HJMFragmentsDownloadManager.h"
@@ -62,8 +61,16 @@
     return self;
 }
 
-- (BOOL)canResumeDownloadWithIdentifier:(NSString *)identifier {
-    return [self.producer isTableExistInDatabaseWith:identifier];
+- (HJMFragmentDownloadStatus)fragmentListDownloadStatusWithIdentifier:(NSString *)identifier {
+    if ([self.producer isTableExistInDatabaseWithIdentifier:identifier]) {
+        return HJMURLDownloadStatusCanResume;
+    } else {
+        if ([self.consumer directoryExistsWithIdentifer:identifier]) {
+            return HJMURLDownloadStatusCompleted;
+        } else {
+            return HJMURLDownloadStatusNone;
+        }
+    }
 }
 
 - (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
@@ -153,7 +160,9 @@
 }
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
-
+    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskCompleteWithError:identifier:)]) {
+        [self.delegate downloadTaskCompleteWithError:error identifier:identifier];
+    }
 }
 
 @end

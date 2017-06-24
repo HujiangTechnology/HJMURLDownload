@@ -28,7 +28,7 @@
     return self;
 }
 
-- (BOOL)isTableExistInDatabaseWith:(NSString *)identifier {
+- (BOOL)isTableExistInDatabaseWithIdentifier:(NSString *)identifier {
     return [self.dbManager isTableExist:identifier];
 }
 

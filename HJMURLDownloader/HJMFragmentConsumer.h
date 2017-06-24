@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "M3U8SegmentInfo.h"
 
+typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
+    HJMURLDownloadStatusNone,       // 数据库中没有记录，是一个新任务
+    HJMURLDownloadStatusCanResume,  // 数据库中有记录，可以回复下载
+    HJMURLDownloadStatusCompleted,  // 数据库中没有记录了，本地有文件夹，说明已经完成了
+};
+
 @protocol HJMFragmentConsumerDelegate <NSObject>
 
 @required
@@ -27,6 +33,8 @@
 @property (nonatomic, weak) id<HJMFragmentConsumerDelegate> delegate;
 
 @property (nonatomic, assign, readonly) BOOL isBusy;
+
+- (BOOL)directoryExistsWithIdentifer:(NSString *)identifier;
 
 - (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier;
 

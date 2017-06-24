@@ -45,6 +45,16 @@
     return [self.delegate currentDownloadingIdentifier];
 }
 
+- (NSString *)directoryPathWithIdentifier:(NSString *)identifier {
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingString:[NSString stringWithFormat:@"fragmentListDirectory/%@", identifier]];
+}
+
+- (BOOL)directoryExistsWithIdentifer:(NSString *)identifier {
+    NSString *directoryPath = [self directoryPathWithIdentifier:identifier];
+    BOOL isdirectory = YES;
+    return [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isdirectory];
+}
+
 - (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier {
     if (self = [super init]) {
         self.limitedCount = count;
@@ -78,10 +88,14 @@
     [self.completionHandlerDictionary setObject:aCompletionHandler forKey:aBackgroundURLSessionIdentifier];
 }
 
+- (void)createDirectoryIfNotExist:(NSString *)directory {
+    NSError * error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:&error];
+}
+
 #pragma mark - NSURLSessionTaskDelegate
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-    NSLog(@"%s", __func__);
     if (error) {
         NSNumber *retryTimes = self.retryDictionary[task.originalRequest.URL.absoluteString];
         // get the data task's original url
@@ -100,9 +114,15 @@
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
-    NSLog(@"%s", __func__);
-    // get the md5 value of fragment
     NSString *md5 = [downloadTask.originalRequest.URL.lastPathComponent md5];
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    NSString *currentDownloadDirectory = [self directoryPathWithIdentifier:[self.delegate currentDownloadingIdentifier]];
+    [self createDirectoryIfNotExist:currentDownloadDirectory];
+    NSString *fileName = downloadTask.originalRequest.URL.absoluteString.lastPathComponent;
+    BOOL saveSuccess = [data writeToFile:[currentDownloadDirectory stringByAppendingPathComponent:fileName] atomically:YES];
+    saveSuccess ? NSLog(@"saved") : NSLog(@"save failed");
+    NSLog(@"*** %@ ***", currentDownloadDirectory);
+    // get the md5 value of fragment
     [self.delegate oneFragmentDownloadedWithFragmentIdentifier:md5 identifier:self.currentDownloadIdentifier];
     M3U8SegmentInfo *fragment = [self.delegate oneMoreFragmentWithIdentifier:self.currentDownloadIdentifier];
     if (fragment) {
@@ -112,7 +132,6 @@ didFinishDownloadingToURL:(NSURL *)location {
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {
-    NSLog(@"%s", __func__);
     // 执行存储的block，告诉系统现在可以杀死app了。
     void (^backgroundBlock)() = self.completionHandlerDictionary[session.configuration.identifier];
     if (backgroundBlock) {
