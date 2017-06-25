@@ -15,7 +15,6 @@
 @interface HJMFragmentConsumer () <NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, assign) NSInteger limitedCount;
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
 /**
@@ -45,6 +44,19 @@
     return [self.delegate currentDownloadingIdentifier];
 }
 
+- (NSURLSession *)session {
+    if (!_session) {
+        NSURLSessionConfiguration *configuration;
+        if (self.isSupportBackgroundDownload) {
+            configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:self.backgroundIdentifier];
+        } else {
+            configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        }
+        _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    }
+    return _session;
+}
+
 - (NSString *)directoryPathWithIdentifier:(NSString *)identifier {
     return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"fragmentListDirectory/%@", identifier]];
 }
@@ -53,24 +65,6 @@
     NSString *directoryPath = [self directoryPathWithIdentifier:identifier];
     BOOL isdirectory = YES;
     return [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isdirectory];
-}
-
-- (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier {
-    if (self = [super init]) {
-        self.limitedCount = count;
-        NSURLSessionConfiguration *configuration;
-        if (isSupportBackground) {
-            configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:backgroundIdentifier];
-        } else {
-            configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        }
-        self.session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    }
-    return self;
-}
-
-- (instancetype)init {
-    return [self initWithLimitedConcurrentCount:4 isSupportBackground:NO backgroundIdentifier:nil];
 }
 
 - (void)startToDownloadFragmentArray:(NSArray <M3U8SegmentInfo *> *)fragmentArray arrayIdentifer:(NSString *)identifier {
@@ -82,8 +76,8 @@
 }
 
 - (void)stopCurrentDownloadingFragmentList {
-    [self.session invalidateAndCancel];
-    self.session = nil;
+    [_session invalidateAndCancel];
+    _session = nil;
 #warning 如果pending中还有任务，应该去下载下一个
     [self.delegate didStoppedCurrentFragmentListDownloading];
 }

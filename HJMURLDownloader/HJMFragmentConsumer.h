@@ -34,6 +34,18 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 
 @interface HJMFragmentConsumer : NSObject
 
+/**
+ 支持background下载，默认为YES
+ */
+@property (nonatomic, assign, getter = isSupportBackgroundDownload) BOOL supportBackgroundDownload;
+
+/**
+ 并发下载数量，系统限制上限为4，默认为4
+ */
+@property (nonatomic, assign) NSInteger concurrentCount;
+
+@property (nonatomic, copy) NSString *backgroundIdentifier;
+
 @property (nonatomic, weak) id<HJMFragmentConsumerDelegate> delegate;
 
 - (NSString *)directoryPathWithIdentifier:(NSString *)identifier;
@@ -41,8 +53,6 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 - (void)stopCurrentDownloadingFragmentList;
 
 - (BOOL)directoryExistsWithIdentifer:(NSString *)identifier;
-
-- (instancetype)initWithLimitedConcurrentCount:(NSInteger)count isSupportBackground:(BOOL)isSupportBackground backgroundIdentifier:(NSString *)backgroundIdentifier;
 
 - (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler;
 

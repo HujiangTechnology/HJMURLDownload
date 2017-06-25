@@ -57,17 +57,14 @@
 
 - (void)fragmentDidStoppedWithIdentifier:(NSString *)identifier;
 
+- (void)allFragmentListsHaveRunOut;
+
 @end
 
 @interface HJMFragmentsDownloadManager : NSObject
 
 /**
- 只在wifi连接时下载，默认为NO
- */
-@property (nonatomic, assign, getter = isOnlyWiFiAccess) BOOL onlyWiFiAccess;
-
-/**
- 支持background下载，默认为YES
+ 支持background下载，默认为NO
  */
 @property (nonatomic, assign, getter = isSupportBackgroundDownload) BOOL supportBackgroundDownload;
 
@@ -75,6 +72,8 @@
  并发下载数量，系统限制上限为4，默认为4
  */
 @property (nonatomic, assign) NSInteger concurrentCount;
+
+@property (nonatomic, copy) NSString *backgroundIdentifier;
 
 /**
  *  创建普通下载器，不支持后台下载，默认不限制网络，

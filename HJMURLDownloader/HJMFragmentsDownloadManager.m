@@ -44,19 +44,29 @@
     return [self defaultManager];
 }
 
+- (void)setConcurrentCount:(NSInteger)concurrentCount {
+    _concurrentCount = concurrentCount;
+    self.consumer.concurrentCount = concurrentCount;
+}
+
+-(void)setSupportBackgroundDownload:(BOOL)supportBackgroundDownload {
+    _supportBackgroundDownload = supportBackgroundDownload;
+    self.consumer.supportBackgroundDownload = supportBackgroundDownload;
+}
+
+- (void)setBackgroundIdentifier:(NSString *)backgroundIdentifier {
+    _backgroundIdentifier = backgroundIdentifier;
+    self.consumer.backgroundIdentifier = backgroundIdentifier;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(changeWiFiAccess:)
-                                                     name:kHJMURLDownloaderOnlyWiFiAccessNotification
-                                                   object:nil];
         self.producer = [[HJMFragmentProducer alloc] init];
         self.producer.delegate = self;
         self.consumer = [[HJMFragmentConsumer alloc] init];
         self.consumer.delegate = self;
         self.concurrentCount = 4;
-        self.onlyWiFiAccess = NO;
-        self.supportBackgroundDownload = YES;
+        self.supportBackgroundDownload = NO;
         self.callbackModelArray = [NSMutableArray array];
     }
     return self;
@@ -71,7 +81,6 @@
         } else {
             return HJMURLDownloadStatusNone;
         }
-        
     }
 }
 

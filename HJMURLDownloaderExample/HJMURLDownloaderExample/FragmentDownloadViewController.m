@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSArray *identifierArray;
 @property (nonatomic, strong) NSMutableArray *labelArray;
+@property (nonatomic, strong) NSMutableArray *buttonArray;
 
 @end
 
@@ -23,11 +24,12 @@
     [super viewDidLoad];
     self.identifierArray = @[@"aaaaaaa", @"bbbbbb", @"ccccccc"];
     self.labelArray = [NSMutableArray array];
+    self.buttonArray = [NSMutableArray array];
     [self setupUI];
 }
 
 - (void)setupUI {
-    NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载一", @"停止下载二", @"停止下载三", @"恢复下载一", @"恢复下载二", @"恢复下载三", @"删除文件一", @"删除文件二", @"删除文件三"];
+    NSArray *titleArray = @[@"开始下载", @"开始下载", @"开始下载", @"删除文件一", @"删除文件二", @"删除文件三"];
     for (int i = 0; i < titleArray.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.tag = i;
@@ -45,10 +47,21 @@
         label.tag = i;
         [self.view addSubview:label];
         [self.labelArray addObject:label];
+        [self.buttonArray addObject:button];
     }
 }
 
 - (UILabel *)labelWithIdentifier:(NSString *)identifier {
+    NSInteger index = [self.identifierArray indexOfObject:identifier];
+    for (int i = 0; i < self.labelArray.count; i++) {
+        if (index == i) {
+            return [self.labelArray objectAtIndex:i];
+        }
+    }
+    return nil;
+}
+
+- (UIButton *)buttonWithIdentifier:(NSString *)identifier {
     NSInteger index = [self.identifierArray indexOfObject:identifier];
     for (int i = 0; i < self.labelArray.count; i++) {
         if (index == i) {
@@ -64,22 +77,15 @@
         case 1:
         case 2:
             // 下载带有不同标示的任务
-            [self downloadTaskWithIndex:button.tag];
+            if ([button.titleLabel.text isEqualToString:@"停止下载"]) {
+                [self stopTaskWithIndex:button.tag];
+            } else {
+                [self downloadTaskWithIndex:button.tag];
+            }
             break;
         case 3:
         case 4:
         case 5:
-            [self stopTaskWithIndex:button.tag];
-            break;
-        case 6:
-        case 7:
-        case 8:
-            // 恢复下载带有不同标示的任务
-            [self resumeTaskWithIndex:button.tag];
-            break;
-        case 9:
-        case 10:
-        case 11:
             // 删除
             [self deleteFragemntListWithIndex:button.tag];
             break;
@@ -95,19 +101,13 @@
     m3u8InfoList.segmentInfoList = [NSMutableArray arrayWithArray:[m3u8InfoList.segmentInfoList subarrayWithRange:NSMakeRange(0, 10)]];
     m3u8InfoList.identifier = self.identifierArray[index];
     [[HJMFragmentsDownloadManager defaultManager] downloadFragmentList:m3u8InfoList delegate:self];
+    [[self.buttonArray objectAtIndex:index] setTitle:@"停止下载" forState:UIControlStateNormal];
 }
 
 - (void)stopTaskWithIndex:(NSInteger)index {
-    NSString *identifier = self.identifierArray[index % 3];
+    NSString *identifier = self.identifierArray[index];
     [[HJMFragmentsDownloadManager defaultManager] stopDownloadFragmentListWithIdentifier:identifier];
-}
-
-- (void)resumeTaskWithIndex:(NSInteger)index {
-    NSString *identifier = self.identifierArray[index % 3];
-    [self downloadTaskWithIndex:index % 3];
-    if ([[HJMFragmentsDownloadManager defaultManager] fragmentListDownloadStatusWithIdentifier:identifier] != HJMURLDownloadStatusCanResume) {
-        NSLog(@"之前没有记录，或者已经下完了");
-    }
+    [[self.buttonArray objectAtIndex:index] setTitle:@"开始下载" forState:UIControlStateNormal];
 }
 
 - (void)deleteFragemntListWithIndex:(NSInteger)index {
@@ -147,5 +147,8 @@
     [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"save failed"];
 }
 
+- (void)allFragmentListsHaveRunOut {
+
+}
 
 @end
