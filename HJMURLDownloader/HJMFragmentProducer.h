@@ -37,10 +37,12 @@
 
 - (void)addFragmentsArray:(M3U8SegmentInfoList *)fragmentArray;
 
+- (void)removePendingFragmentArrayWithIdentifier:(NSString *)identifier;
+
 - (NSArray <M3U8SegmentInfo *> *)fragmentsWithOriginalArray:(M3U8SegmentInfoList *)originalArray limitedCount:(NSInteger)limitedCount;
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 
-- (void)removeFragmentOutofDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
+- (void)markFragmentAsDoneInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
 
 @end

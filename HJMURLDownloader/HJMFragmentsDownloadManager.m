@@ -95,6 +95,18 @@
     }
 }
 
+- (void)stopDownloadFragmentListWithIdentifier:(NSString *)identifier {
+    if ([self.producer.currentDownloadingIdentifier isEqualToString:identifier]) {
+        [self.consumer stopCurrentDownloadingFragmentList];
+    } else {
+        [self.producer removePendingFragmentArrayWithIdentifier:identifier];
+        [self removeRecordFromCallbackArrayWithIdentifier:identifier];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(fragmentDidStoppedWithIdentifier:)]) {
+            [self.delegate fragmentDidStoppedWithIdentifier:identifier];
+        }
+    }
+}
+
 - (id<HJMFragmentsDownloadManagerDelegate>)delegateForIdentifier:(NSString *)identifier {
     for (HJMFragmentCallBackModel *model in self.callbackModelArray) {
         if ([model.identifier isEqualToString:identifier]) {
@@ -123,8 +135,8 @@
 #pragma mark HJMFragmentProducerDelegate
 
 - (void)fragmentListHasRunOutWithIdentifier:(NSString *)identifier {
-    if ([self.delegate respondsToSelector:@selector(downloadTaskCompleteWithDirectoryPath:identifier:)]) {
-        [self.delegate downloadTaskCompleteWithDirectoryPath:nil identifier:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskCompleteWithDirectoryPath:identifier:)]) {
+        [self.delegate downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:identifier] identifier:identifier];
     }
     // 队列下载完成了，将记录的delegate移除
     [self removeRecordFromCallbackArrayWithIdentifier:identifier];
@@ -134,7 +146,14 @@
     if (fragmentsArray.count) {
         // producer里面有下一个队列的记录，consumer直接去下载，producer会将这个下载记入数据库
         [self.consumer startToDownloadFragmentArray:[fragmentsArray.segmentInfoList subarrayWithRange:NSMakeRange(0, MIN(self.concurrentCount, fragmentsArray.count))] arrayIdentifer:fragmentsArray.identifier];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+            [self.delegate downloadTaskBeginWithIdentifier:identifier];
+        }
     }
+}
+
+- (void)allFragmentListsHaveRunOut {
+    NSLog(@"all fragment have run out");
 }
 
 #pragma mark - HJMFragmentConsumerDelegate
@@ -143,20 +162,13 @@
     return [self.producer oneMoreFragmentWithIdentifier:identifier];
 }
 
-- (void)oneFragmentDownloadedWithIdentifier:(NSString *)identifier {
-    NSInteger leftFragmentCount = [self.producer leftFragmentCountWithIdentifier:identifier];
-    if ([self.delegate respondsToSelector:@selector(downloadTaskReachProgress:identifier:)]) {
-        [self.delegate downloadTaskReachProgress:(CGFloat)leftFragmentCount / [self.producer totalCountForCurrentFragmentList] identifier:identifier];
-    }
-}
-
-- (NSString *)currentDownloadingIdentifier {
-    return self.producer.currentDownloadingIdentifier;
-}
-
 - (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier {
     // remove the record at database
-    [self.producer removeFragmentOutofDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
+    [self.producer markFragmentAsDoneInDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskReachProgress:identifier:)]) {
+        NSInteger leftFragmentCount = [self.producer leftFragmentCountWithIdentifier:identifier];
+        [self.delegate downloadTaskReachProgress: (1 - (CGFloat)leftFragmentCount / [self.producer totalCountForCurrentFragmentList]) identifier:identifier];
+    }
 }
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
@@ -164,5 +176,28 @@
         [self.delegate downloadTaskCompleteWithError:error identifier:identifier];
     }
 }
+
+- (void)didStoppedCurrentFragmentListDownloading {
+    M3U8SegmentInfoList *fragmentsArray = [self.producer nextFragmentList];
+    if (fragmentsArray.count) {
+        // producer里面有下一个队列的记录，consumer直接去下载，producer会将这个下载记入数据库
+        [self.consumer startToDownloadFragmentArray:[fragmentsArray.segmentInfoList subarrayWithRange:NSMakeRange(0, MIN(self.concurrentCount, fragmentsArray.count))] arrayIdentifer:fragmentsArray.identifier];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+            [self.delegate downloadTaskBeginWithIdentifier:fragmentsArray.identifier];
+        }
+    }
+}
+
+- (void)fragmentSaveToDiskFailed {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(fragmentSaveToDiskFailed)]) {
+        [self.delegate fragmentSaveToDiskFailed];
+    }
+}
+
+- (NSString *)currentDownloadingIdentifier {
+    return self.producer.currentDownloadingIdentifier;
+}
+
+
 
 @end

@@ -21,11 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.identifierArray = @[@"aaaaaaa", @"bbbbbb", @"ccccccc"];
+    [HJMFragmentsDownloadManager defaultManager].delegate = self;
     [self setupUI];
 }
 
 - (void)setupUI {
-    NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载", @"恢复下载"];
+    NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载一", @"停止下载二", @"停止下载三", @"恢复下载"];
     for (int i = 0; i < titleArray.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = i;
@@ -49,13 +50,15 @@
             [self downloadTaskWithIndex:button.tag];
             break;
         case 3:
+        case 4:
+        case 5:
             [self stopTaskWithIndex:button.tag];
             break;
-        case 4:
+        case 6:
             // 恢复下载带有不同标示的任务
             [self resumeTaskWithIndex:button.tag];
             break;
-        case 5:
+        case 7:
             break;
         default:
             break;
@@ -66,13 +69,14 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"localM3u8" ofType:@"txt"];
     NSString *m3u8String = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     M3U8SegmentInfoList *m3u8InfoList = [M3U8Parser m3u8SegmentInfoListFromPlanString:m3u8String];
+    m3u8InfoList.segmentInfoList = [NSMutableArray arrayWithArray:[m3u8InfoList.segmentInfoList subarrayWithRange:NSMakeRange(0, 10)]];
     m3u8InfoList.identifier = self.identifierArray[index];
     [[HJMFragmentsDownloadManager defaultManager] downloadFragmentList:m3u8InfoList delegate:self];
 }
 
 - (void)stopTaskWithIndex:(NSInteger)index {
-    NSString *identifier = self.identifierArray[index];
-    [[HJMFragmentsDownloadManager defaultManager] st]
+    NSString *identifier = self.identifierArray[index % 3];
+    [[HJMFragmentsDownloadManager defaultManager] stopDownloadFragmentListWithIdentifier:identifier];
 }
 
 - (void)resumeTaskWithIndex:(NSInteger)index {
@@ -81,56 +85,28 @@
 
 #pragma mark - HJMFragmentsDownloadManagerDelegate
 
-- (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData {
-    return YES;
-}
-
-/**
- 当前有任务正在下载，新添加的下载任务被加入到队列中，等待前面的任务完成再开始
- 
- @param identifier 加入队列等待的任务的唯一标示，接入方应该能够通过这个标示找到对应的任务
- */
 - (void)downloadTaskAddedToQueueWithIdentifer:(NSString *)identifier {
-    NSLog(@"%s", __func__);
+    NSLog(@"add to queue");
 }
 
-/**
- 通知代理，任务已经开始下载了
- 
- @param identifier 任务标示
- */
 - (void)downloadTaskBeginWithIdentifier:(NSString *)identifier {
-    NSLog(@"%s", __func__);
+    NSLog(@"task begin: identifier :%@", identifier);
 }
 
-/**
- 下载的任务完成进度，任务中的每一个fragment下载完成会回调一次该方法
- 
- @param progress 完成进度 下载完成的fragment的个数／总个数
- @param identifier 任务标示
- */
 - (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier {
-    NSLog(@"%s", __func__);
+    NSLog(@"download progress : %f  identifier :%@", progress, identifier);
 }
 
-/**
- 任务下载完成，自动下载队列中的下一个任务
- 
- @param directoryPath 任务中所有的fragments保存的文件夹
- @param identifier 任务标示
- */
 - (void)downloadTaskCompleteWithDirectoryPath:(NSString *)directoryPath identifier:(NSString *)identifier {
-    NSLog(@"%s", __func__);
+    NSLog(@"download success with path : %@", directoryPath);
 }
 
-/**
- 任务经过重试(如有)，下载失败，自动下载队列中的下一个任务
- 
- @param error 出错信息
- @param identifier 任务标示
- */
 - (void)downloadTaskCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
-    NSLog(@"%s", __func__);
+    NSLog(@"download failed with error : %@", error);
+}
+
+- (void)fragmentSaveToDiskFailed {
+    NSLog(@"save failed");
 }
 
 

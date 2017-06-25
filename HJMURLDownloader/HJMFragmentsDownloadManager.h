@@ -12,11 +12,6 @@
 
 @protocol HJMFragmentsDownloadManagerDelegate <NSObject>
 
-@required
-- (BOOL)downloadTaskShouldHaveEnoughFreeSpace:(long long)expectedData;
-
-@optional
-
 /**
  当前有任务正在下载，新添加的下载任务被加入到队列中，等待前面的任务完成再开始
 
@@ -55,11 +50,18 @@
  */
 - (void)downloadTaskCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
 
+/**
+ 存储出错 有可能是空间不够引起的
+ */
+- (void)fragmentSaveToDiskFailed;
+
+- (void)fragmentDidStoppedWithIdentifier:(NSString *)identifier;
+
 @end
 
 @interface HJMFragmentsDownloadManager : NSObject
 
-@property (nonatomic, weak, readonly) id<HJMFragmentsDownloadManagerDelegate> delegate;
+@property (nonatomic, weak) id<HJMFragmentsDownloadManagerDelegate> delegate;
 
 /**
  只在wifi连接时下载，默认为NO

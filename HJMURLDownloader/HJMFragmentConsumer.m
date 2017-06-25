@@ -46,7 +46,7 @@
 }
 
 - (NSString *)directoryPathWithIdentifier:(NSString *)identifier {
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingString:[NSString stringWithFormat:@"fragmentListDirectory/%@", identifier]];
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"fragmentListDirectory/%@", identifier]];
 }
 
 - (BOOL)directoryExistsWithIdentifer:(NSString *)identifier {
@@ -79,6 +79,13 @@
         NSString *urlString = [NSString stringWithFormat:@"%@%@", baseUrlString, fragment.mediaURLString];
         [[self.session downloadTaskWithURL:[NSURL URLWithString:urlString]] resume];
     }
+}
+
+- (void)stopCurrentDownloadingFragmentList {
+    [self.session invalidateAndCancel];
+    self.session = nil;
+#warning 如果pending中还有任务，应该去下载下一个
+    [self.delegate didStoppedCurrentFragmentListDownloading];
 }
 
 - (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler {
@@ -120,14 +127,16 @@ didFinishDownloadingToURL:(NSURL *)location {
     [self createDirectoryIfNotExist:currentDownloadDirectory];
     NSString *fileName = downloadTask.originalRequest.URL.absoluteString.lastPathComponent;
     BOOL saveSuccess = [data writeToFile:[currentDownloadDirectory stringByAppendingPathComponent:fileName] atomically:YES];
-    saveSuccess ? NSLog(@"saved") : NSLog(@"save failed");
-    NSLog(@"*** %@ ***", currentDownloadDirectory);
-    // get the md5 value of fragment
-    [self.delegate oneFragmentDownloadedWithFragmentIdentifier:md5 identifier:self.currentDownloadIdentifier];
-    M3U8SegmentInfo *fragment = [self.delegate oneMoreFragmentWithIdentifier:self.currentDownloadIdentifier];
-    if (fragment) {
-        // 下载下一个fragment
-        [self startToDownloadFragmentArray:@[fragment] arrayIdentifer:self.currentDownloadIdentifier];
+    
+    if (saveSuccess) {
+        [self.delegate oneFragmentDownloadedWithFragmentIdentifier:md5 identifier:self.currentDownloadIdentifier];
+        M3U8SegmentInfo *fragment = [self.delegate oneMoreFragmentWithIdentifier:self.currentDownloadIdentifier];
+        if (fragment) {
+            // 下载下一个fragment
+            [self startToDownloadFragmentArray:@[fragment] arrayIdentifer:self.currentDownloadIdentifier];
+        }
+    } else {
+        [self.delegate fragmentSaveToDiskFailed];
     }
 }
 

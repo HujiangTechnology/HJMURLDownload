@@ -44,21 +44,6 @@ static HJMFragmentDBManager *manager;
 - (instancetype)init {
     if (self = [super init]) {
         self.databaseQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] filePath]];
-//        // create table
-        [self.databaseQueue inDatabase:^(FMDatabase *db) {
-            BOOL createSuccess = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_requests(\
-                                  id INTEGER PRIMARY KEY NOT NULL,\
-                                  domain TEXT,\
-                                  start_time DATE,\
-                                  end_time DATE,\
-                                  time_interval DOUBle,\
-                                  status_code INTEGER,\
-                                  network_status VARCHAR(255),\
-                                  traffic_size DOUBLE);"];
-            if (!createSuccess) {
-                [db rollback];
-            }
-        }];
     }
     return self;
 }
@@ -68,7 +53,8 @@ static HJMFragmentDBManager *manager;
         NSString *sqlString = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(\
                                id INTEGER PRIMARY KEY NOT NULL,\
                                url TEXT,\
-                               md5String VARCHAR(255));", tableName];
+                               md5String VARCHAR(255),\
+                               done BOOLEAN);", tableName];
         BOOL createSuccess = [db executeUpdate:sqlString];
         if (!createSuccess) {
             [db rollback];
@@ -79,7 +65,7 @@ static HJMFragmentDBManager *manager;
 - (NSArray <M3U8SegmentInfo *> *)fragmentsModelWithCount:(NSInteger)count tableName:(NSString *)tableName {
     __block NSMutableArray <M3U8SegmentInfo *> *fragments = [NSMutableArray array];
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id ASC LIMIT %ld", tableName, count];
+        NSString *sqlString = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE done = %@ ORDER BY id ASC LIMIT %ld", tableName, @(NO), count];
         FMResultSet *resultSet = nil;
         resultSet = [db executeQuery:sqlString];
         while ([resultSet next]) {
@@ -100,7 +86,7 @@ static HJMFragmentDBManager *manager;
 - (M3U8SegmentInfo *)oneMoreFragmentModelInTable:(NSString *)tableName {
     __block M3U8SegmentInfo *fragmentModel = [[M3U8SegmentInfo alloc] init];
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id ASC LIMIT 1", tableName];
+        NSString *sqlString = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE done = %@ ORDER BY id ASC LIMIT 1", tableName, @(NO)];
         FMResultSet *resultSet = nil;
         resultSet = [db executeQuery:sqlString];
         if ([resultSet next]) {
@@ -119,24 +105,24 @@ static HJMFragmentDBManager *manager;
 - (void)insertFragmentModelArray:(NSMutableArray <M3U8SegmentInfo *> *)fragmentModels toTable:(NSString *)tableName {
     [self.databaseQueue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         [fragmentModels enumerateObjectsUsingBlock:^(M3U8SegmentInfo * _Nonnull fragmentModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(id, url, md5String) VALUES (?, ?, ?)", tableName];
-            [db executeUpdate:sqlString, @(fragmentModel.index), fragmentModel.mediaURLString, fragmentModel.md5String];
+            NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(id, url, md5String, done) VALUES (?, ?, ?, ?)", tableName];
+            [db executeUpdate:sqlString, @(fragmentModel.index), fragmentModel.mediaURLString, fragmentModel.md5String, @(NO)];
         }];
     }];
 }
 
-- (void)removeFragmentModelWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName {
+- (void)markFragmentModelDoneWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE md5String = '%@';", tableName, fragmentIdentifier];
+        NSString *sqlString = [NSString stringWithFormat:@"UPDATE %@ SET done = %@ WHERE md5String = '%@'",tableName, @(YES), fragmentIdentifier];
         [db executeUpdate:sqlString];
     }];
     
 }
 
-- (NSInteger)rowCountInTable:(NSString *)tableName {
+- (NSInteger)leftRowCountInTable:(NSString *)tableName {
     __block NSInteger count = 0;
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"SELECT COUNT(md5String) FROM %@", tableName];
+        NSString *sqlString = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE done = %@", tableName, @(NO)];
        count = [db intForQuery:sqlString];
     }];
     return count;

@@ -52,7 +52,7 @@
 }
 
 - (NSInteger)leftFragmentCountWithIdentifier:(NSString *)identifier {
-    return [self.dbManager rowCountInTable:identifier];
+    return [self.dbManager leftRowCountInTable:identifier];
 }
 
 - (NSInteger)totalCountForCurrentFragmentList {
@@ -61,6 +61,18 @@
 
 - (void)addFragmentsArray:(M3U8SegmentInfoList *)fragmentArray {
     [self.pendingFragmentListArray addObject:fragmentArray];
+}
+
+- (void)removePendingFragmentArrayWithIdentifier:(NSString *)identifier {
+    M3U8SegmentInfoList *listToRemove = nil;
+    for (M3U8SegmentInfoList *fragmentList in self.pendingFragmentListArray) {
+        if ([fragmentList.identifier isEqualToString:identifier]) {
+            listToRemove = fragmentList;
+        }
+    }
+    if (listToRemove) {
+        [self.pendingFragmentListArray removeObject:listToRemove];
+    }
 }
 
 - (NSArray <M3U8SegmentInfo *> *)fragmentsWithOriginalArray:(M3U8SegmentInfoList *)originalArray limitedCount:(NSInteger)limitedCount {
@@ -79,16 +91,16 @@
 }
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier {
-    if ([self.dbManager rowCountInTable:identifier]) {
+    if ([self.dbManager leftRowCountInTable:identifier]) {
         return [self.dbManager oneMoreFragmentModelInTable:identifier];
-    } else {
+    } else if ([self.dbManager leftRowCountInTable:identifier] == 0) {
         [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
-        return nil;
     }
+    return nil;
 }
 
-- (void)removeFragmentOutofDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier {
-    [self.dbManager removeFragmentModelWithIdentifier:fragmentIdentifer inTable:identifier];
+- (void)markFragmentAsDoneInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier {
+    [self.dbManager markFragmentModelDoneWithIdentifier:fragmentIdentifer inTable:identifier];
 }
 
 - (void)insertFragmentArrayToDatabase:(M3U8SegmentInfoList *)fragmentList {

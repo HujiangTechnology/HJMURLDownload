@@ -24,7 +24,11 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier;
 
+- (void)didStoppedCurrentFragmentListDownloading;
+
 - (NSString *)currentDownloadingIdentifier;
+
+- (void)fragmentSaveToDiskFailed;
 
 @end
 
@@ -33,6 +37,10 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 @property (nonatomic, weak) id<HJMFragmentConsumerDelegate> delegate;
 
 @property (nonatomic, assign, readonly) BOOL isBusy;
+
+- (NSString *)directoryPathWithIdentifier:(NSString *)identifier;
+
+- (void)stopCurrentDownloadingFragmentList;
 
 - (BOOL)directoryExistsWithIdentifer:(NSString *)identifier;
 
