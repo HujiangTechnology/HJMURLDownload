@@ -37,13 +37,15 @@
     if (list) {
         // 到这里说明要下载下一个队列了，将队列写入数据库
         self.currentFragmentArrayCount = list.segmentInfoList.count;
-        self.currentFragmentArrayCount = list.identifier;
+        self->_currentDownloadingIdentifier = list.identifier;
         [self insertFragmentArrayToDatabase:list];
         self.currentFragmentArrayCount = list.segmentInfoList.count;
         // 已经入库，将它从pending array中移除
         [self.pendingFragmentListArray removeObject:list];
     } else {
         // 没有队列了
+        self.currentFragmentArrayCount = 0;
+        self->_currentDownloadingIdentifier = nil;
         if ([self.delegate respondsToSelector:@selector(allFragmentListsHaveRunOut)]) {
             [self.delegate allFragmentListsHaveRunOut];
         }
@@ -85,6 +87,8 @@
     // 从数据库中拿数据给返回给manager
     NSArray *fragmentsToDownload = [self.dbManager fragmentsModelWithCount:limitedCount tableName:originalArray.identifier];
     if (fragmentsToDownload.count == 0) {
+        self.currentFragmentArrayCount = 0;
+        self->_currentDownloadingIdentifier = nil;
         [self.delegate fragmentListHasRunOutWithIdentifier:originalArray.identifier];
     }
     return fragmentsToDownload;
@@ -94,6 +98,8 @@
     if ([self.dbManager leftRowCountInTable:identifier]) {
         return [self.dbManager oneMoreFragmentModelInTable:identifier];
     } else if ([self.dbManager leftRowCountInTable:identifier] == 0) {
+        self.currentFragmentArrayCount = 0;
+        self->_currentDownloadingIdentifier = nil;
         [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
     }
     return nil;
@@ -124,6 +130,10 @@
     if (itemShouldRemove) {
         [self.pendingFragmentListArray removeObject:itemShouldRemove];
     }
+}
+
+- (void)deleteFragemntListWithIdentifier:(NSString *)identifier {
+    [self.dbManager dropTable:identifier];
 }
 
 @end

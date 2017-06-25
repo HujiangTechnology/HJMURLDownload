@@ -36,8 +36,6 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 
 @property (nonatomic, weak) id<HJMFragmentConsumerDelegate> delegate;
 
-@property (nonatomic, assign, readonly) BOOL isBusy;
-
 - (NSString *)directoryPathWithIdentifier:(NSString *)identifier;
 
 - (void)stopCurrentDownloadingFragmentList;

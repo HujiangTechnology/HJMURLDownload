@@ -138,7 +138,7 @@ static HJMFragmentDBManager *manager;
 
 - (void)dropTable:(NSString *)tableName {
     [self.databaseQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sqlString = [NSString stringWithFormat:@"DROP TABLE IF EXIST %@", tableName];
+        NSString *sqlString = [NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", tableName];
         [db executeUpdate:sqlString];
     }];
 }

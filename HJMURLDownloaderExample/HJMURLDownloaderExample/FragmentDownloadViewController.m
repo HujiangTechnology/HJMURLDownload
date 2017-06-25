@@ -26,7 +26,7 @@
 }
 
 - (void)setupUI {
-    NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载一", @"停止下载二", @"停止下载三", @"恢复下载"];
+    NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载一", @"停止下载二", @"停止下载三", @"恢复下载一", @"恢复下载二", @"恢复下载三", @"删除文件一", @"删除文件二", @"删除文件三"];
     for (int i = 0; i < titleArray.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = i;
@@ -55,10 +55,16 @@
             [self stopTaskWithIndex:button.tag];
             break;
         case 6:
+        case 7:
+        case 8:
             // 恢复下载带有不同标示的任务
             [self resumeTaskWithIndex:button.tag];
             break;
-        case 7:
+        case 9:
+        case 10:
+        case 11:
+            // 删除
+            [self deleteFragemntListWithIndex:button.tag];
             break;
         default:
             break;
@@ -80,7 +86,16 @@
 }
 
 - (void)resumeTaskWithIndex:(NSInteger)index {
+    NSString *identifier = self.identifierArray[index % 3];
+    [self downloadTaskWithIndex:index % 3];
+    if ([[HJMFragmentsDownloadManager defaultManager] fragmentListDownloadStatusWithIdentifier:identifier] != HJMURLDownloadStatusCanResume) {
+        NSLog(@"之前没有记录，或者已经下完了");
+    }
+}
 
+- (void)deleteFragemntListWithIndex:(NSInteger)index {
+    NSString *identifier = self.identifierArray[index % 3];
+    [[HJMFragmentsDownloadManager defaultManager] deleteFragemntListWithIdentifier:identifier];
 }
 
 #pragma mark - HJMFragmentsDownloadManagerDelegate

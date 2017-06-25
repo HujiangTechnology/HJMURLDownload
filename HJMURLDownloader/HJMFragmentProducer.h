@@ -45,4 +45,6 @@
 
 - (void)markFragmentAsDoneInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
 
+- (void)deleteFragemntListWithIdentifier:(NSString *)identifier;
+
 @end

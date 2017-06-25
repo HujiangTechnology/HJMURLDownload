@@ -106,6 +106,13 @@
 - (void)stopDownloadFragmentListWithIdentifier:(NSString *)identifier;
 
 /**
+ 删除对应的文件
+
+ @param identifier 任务标示
+ */
+- (void)deleteFragemntListWithIdentifier:(NSString *)identifier;
+
+/**
  处理background download任务完成时，系统对程序的唤起 https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/UsingNSURLSession.html
  */
 - (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler;

@@ -75,24 +75,37 @@
 }
 
 - (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
-    // 把delegate记录下来供以后调用
-    HJMFragmentCallBackModel *model = [[HJMFragmentCallBackModel alloc] initWithIdentifier:fragments.identifier delegate:delegate];
-    [self.callbackModelArray addObject:model];
-    // 把所有的任务丢给producer
-    [self.producer addFragmentsArray:fragments];
-    
-    // 看看consumer是不是空闲
-    if (self.consumer.isBusy) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskAddedToQueueWithIdentifer:)]) {
-            [self.delegate downloadTaskAddedToQueueWithIdentifer:fragments.identifier];
+    switch ([self fragmentListDownloadStatusWithIdentifier:fragments.identifier]) {
+        case HJMURLDownloadStatusNone:
+        case HJMURLDownloadStatusCanResume:
+        {
+            // 把delegate记录下来供以后调用
+            HJMFragmentCallBackModel *model = [[HJMFragmentCallBackModel alloc] initWithIdentifier:fragments.identifier delegate:delegate];
+            [self.callbackModelArray addObject:model];
+            // 把所有的任务丢给producer
+            [self.producer addFragmentsArray:fragments];
+            // 看看有没有任务在下载
+            if (self.producer.currentDownloadingIdentifier) {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskAddedToQueueWithIdentifer:)]) {
+                    [self.delegate downloadTaskAddedToQueueWithIdentifer:fragments.identifier];
+                }
+            } else {
+                // 从producer拿数据开始下载
+                NSArray <M3U8SegmentInfo *> *fragmentsToDownload = [self.producer fragmentsWithOriginalArray:fragments limitedCount:self.concurrentCount];
+                [self.consumer startToDownloadFragmentArray:fragmentsToDownload arrayIdentifer:fragments.identifier];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+                    [self.delegate downloadTaskBeginWithIdentifier:fragments.identifier];
+                }
+            }
         }
-    } else {
-        // 从producer拿数据开始下载
-        NSArray <M3U8SegmentInfo *> *fragmentsToDownload = [self.producer fragmentsWithOriginalArray:fragments limitedCount:self.concurrentCount];
-        [self.consumer startToDownloadFragmentArray:fragmentsToDownload arrayIdentifer:fragments.identifier];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
-            [self.delegate downloadTaskBeginWithIdentifier:fragments.identifier];
+            break;
+        case HJMURLDownloadStatusCompleted:
+        {
+            [self.delegate downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:fragments.identifier] identifier:fragments.identifier];
         }
+            break;
+        default:
+            break;
     }
 }
 
@@ -127,6 +140,11 @@
     if (tempModel) {
         [self.callbackModelArray removeObject:tempModel];
     }
+}
+
+- (void)deleteFragemntListWithIdentifier:(NSString *)identifier {
+    [self.producer deleteFragemntListWithIdentifier:identifier];
+    [[NSFileManager defaultManager] removeItemAtPath:[self.consumer directoryPathWithIdentifier:identifier] error:NULL];
 }
 
 - (void)handleEventsForBackgroundURLSession:(NSString *)aBackgroundURLSessionIdentifier completionHandler:(void (^)())aCompletionHandler {
