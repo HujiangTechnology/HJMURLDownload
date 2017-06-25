@@ -136,7 +136,7 @@ didFinishDownloadingToURL:(NSURL *)location {
             [self startToDownloadFragmentArray:@[fragment] arrayIdentifer:self.currentDownloadIdentifier];
         }
     } else {
-        [self.delegate fragmentSaveToDiskFailed];
+        [self.delegate fragmentSaveToDiskFailedWithIdentifier:self.currentDownloadIdentifier];
     }
 }
 

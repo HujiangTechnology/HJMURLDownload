@@ -44,11 +44,11 @@
         [self.pendingFragmentListArray removeObject:list];
     } else {
         // 没有队列了
-        self.currentFragmentArrayCount = 0;
-        self->_currentDownloadingIdentifier = nil;
         if ([self.delegate respondsToSelector:@selector(allFragmentListsHaveRunOut)]) {
             [self.delegate allFragmentListsHaveRunOut];
         }
+        self.currentFragmentArrayCount = 0;
+        self->_currentDownloadingIdentifier = nil;
     }
     return list;
 }
@@ -95,18 +95,23 @@
 }
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier {
-    if ([self.dbManager leftRowCountInTable:identifier]) {
+    if ([self.dbManager pendingRowCountInTable:identifier]) {
         return [self.dbManager oneMoreFragmentModelInTable:identifier];
     } else if ([self.dbManager leftRowCountInTable:identifier] == 0) {
+        [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
+        [self.dbManager dropTable:identifier];
         self.currentFragmentArrayCount = 0;
         self->_currentDownloadingIdentifier = nil;
-        [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
     }
     return nil;
 }
 
-- (void)markFragmentAsDoneInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier {
-    [self.dbManager markFragmentModelDoneWithIdentifier:fragmentIdentifer inTable:identifier];
+- (void)removeCompletedFragmentFromDBWithIdentifier:(NSString *)identifier {
+    [self.dbManager removeFragmentModelCompletedWithIdentifier:identifier inTable:self.currentDownloadingIdentifier];
+}
+
+- (void)markFragmentFiredInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier {
+    [self.dbManager markFragmentModelFiredWithIdentifier:fragmentIdentifer inTable:identifier];
 }
 
 - (void)insertFragmentArrayToDatabase:(M3U8SegmentInfoList *)fragmentList {

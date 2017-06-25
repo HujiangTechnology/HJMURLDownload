@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 
 - (NSString *)currentDownloadingIdentifier;
 
-- (void)fragmentSaveToDiskFailed;
+- (void)fragmentSaveToDiskFailedWithIdentifier:(NSString *)identifier;
 
 @end
 

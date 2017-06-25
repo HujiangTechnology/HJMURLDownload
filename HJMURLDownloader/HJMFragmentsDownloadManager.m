@@ -63,18 +63,19 @@
 
 - (HJMFragmentDownloadStatus)fragmentListDownloadStatusWithIdentifier:(NSString *)identifier {
     if ([self.producer isTableExistInDatabaseWithIdentifier:identifier]) {
-        if ([self.producer leftFragmentCountWithIdentifier:identifier]) {
-            return HJMURLDownloadStatusCanResume;
-            
-        } else {
-            return HJMURLDownloadStatusCompleted;
-        }
+        return HJMURLDownloadStatusCanResume;
     } else {
-        return HJMURLDownloadStatusNone;
+        if ([self.consumer directoryExistsWithIdentifer:identifier]) {
+            return HJMURLDownloadStatusCompleted;
+        } else {
+            return HJMURLDownloadStatusNone;
+        }
+        
     }
 }
 
 - (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate {
+    
     switch ([self fragmentListDownloadStatusWithIdentifier:fragments.identifier]) {
         case HJMURLDownloadStatusNone:
         case HJMURLDownloadStatusCanResume:
@@ -86,22 +87,22 @@
             [self.producer addFragmentsArray:fragments];
             // 看看有没有任务在下载
             if (self.producer.currentDownloadingIdentifier) {
-                if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskAddedToQueueWithIdentifer:)]) {
-                    [self.delegate downloadTaskAddedToQueueWithIdentifer:fragments.identifier];
+                if ([delegate respondsToSelector:@selector(downloadTaskAddedToQueueWithIdentifer:)]) {
+                    [delegate downloadTaskAddedToQueueWithIdentifer:fragments.identifier];
                 }
             } else {
                 // 从producer拿数据开始下载
                 NSArray <M3U8SegmentInfo *> *fragmentsToDownload = [self.producer fragmentsWithOriginalArray:fragments limitedCount:self.concurrentCount];
                 [self.consumer startToDownloadFragmentArray:fragmentsToDownload arrayIdentifer:fragments.identifier];
-                if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
-                    [self.delegate downloadTaskBeginWithIdentifier:fragments.identifier];
+                if ([delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+                    [delegate downloadTaskBeginWithIdentifier:fragments.identifier];
                 }
             }
         }
             break;
         case HJMURLDownloadStatusCompleted:
         {
-            [self.delegate downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:fragments.identifier] identifier:fragments.identifier];
+            [delegate downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:fragments.identifier] identifier:fragments.identifier];
         }
             break;
         default:
@@ -115,8 +116,8 @@
     } else {
         [self.producer removePendingFragmentArrayWithIdentifier:identifier];
         [self removeRecordFromCallbackArrayWithIdentifier:identifier];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(fragmentDidStoppedWithIdentifier:)]) {
-            [self.delegate fragmentDidStoppedWithIdentifier:identifier];
+        if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(fragmentDidStoppedWithIdentifier:)]) {
+            [[self delegateForIdentifier:identifier] fragmentDidStoppedWithIdentifier:identifier];
         }
     }
 }
@@ -154,8 +155,8 @@
 #pragma mark HJMFragmentProducerDelegate
 
 - (void)fragmentListHasRunOutWithIdentifier:(NSString *)identifier {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskCompleteWithDirectoryPath:identifier:)]) {
-        [self.delegate downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:identifier] identifier:identifier];
+    if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(downloadTaskCompleteWithDirectoryPath:identifier:)]) {
+        [[self delegateForIdentifier:identifier] downloadTaskCompleteWithDirectoryPath:[self.consumer directoryPathWithIdentifier:identifier] identifier:identifier];
     }
     // 队列下载完成了，将记录的delegate移除
     [self removeRecordFromCallbackArrayWithIdentifier:identifier];
@@ -165,8 +166,8 @@
     if (fragmentsArray.count) {
         // producer里面有下一个队列的记录，consumer直接去下载，producer会将这个下载记入数据库
         [self.consumer startToDownloadFragmentArray:[fragmentsArray.segmentInfoList subarrayWithRange:NSMakeRange(0, MIN(self.concurrentCount, fragmentsArray.count))] arrayIdentifer:fragmentsArray.identifier];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
-            [self.delegate downloadTaskBeginWithIdentifier:identifier];
+        if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+            [[self delegateForIdentifier:identifier] downloadTaskBeginWithIdentifier:identifier];
         }
     }
 }
@@ -183,33 +184,33 @@
 
 - (void)oneFragmentDownloadedWithFragmentIdentifier:(NSString *)fragmentIdentifier identifier:(NSString *)identifier {
     // remove the record at database
-    [self.producer markFragmentAsDoneInDatabaseWithFragmentIdentifier:fragmentIdentifier identifier:identifier];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskReachProgress:identifier:)]) {
+    [self.producer removeCompletedFragmentFromDBWithIdentifier:fragmentIdentifier];
+    if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(downloadTaskReachProgress:identifier:)]) {
         NSInteger leftFragmentCount = [self.producer leftFragmentCountWithIdentifier:identifier];
-        [self.delegate downloadTaskReachProgress: (1 - (CGFloat)leftFragmentCount / [self.producer totalCountForCurrentFragmentList]) identifier:identifier];
+        [[self delegateForIdentifier:identifier] downloadTaskReachProgress: (1 - (CGFloat)leftFragmentCount / [self.producer totalCountForCurrentFragmentList]) identifier:identifier];
     }
 }
 
 - (void)downloadTaskDidCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskCompleteWithError:identifier:)]) {
-        [self.delegate downloadTaskCompleteWithError:error identifier:identifier];
+    if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(downloadTaskCompleteWithError:identifier:)]) {
+        [[self delegateForIdentifier:identifier] downloadTaskCompleteWithError:error identifier:identifier];
     }
 }
 
 - (void)didStoppedCurrentFragmentListDownloading {
     M3U8SegmentInfoList *fragmentsArray = [self.producer nextFragmentList];
-    if (fragmentsArray.count) {
+    if (fragmentsArray) {
         // producer里面有下一个队列的记录，consumer直接去下载，producer会将这个下载记入数据库
         [self.consumer startToDownloadFragmentArray:[fragmentsArray.segmentInfoList subarrayWithRange:NSMakeRange(0, MIN(self.concurrentCount, fragmentsArray.count))] arrayIdentifer:fragmentsArray.identifier];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
-            [self.delegate downloadTaskBeginWithIdentifier:fragmentsArray.identifier];
+        if ([[self delegateForIdentifier:fragmentsArray.identifier] respondsToSelector:@selector(downloadTaskBeginWithIdentifier:)]) {
+            [[self delegateForIdentifier:fragmentsArray.identifier] downloadTaskBeginWithIdentifier:fragmentsArray.identifier];
         }
     }
 }
 
-- (void)fragmentSaveToDiskFailed {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(fragmentSaveToDiskFailed)]) {
-        [self.delegate fragmentSaveToDiskFailed];
+- (void)fragmentSaveToDiskFailedWithIdentifier:(NSString *)identifier {
+    if ([[self delegateForIdentifier:identifier] respondsToSelector:@selector(fragmentSaveToDiskFailedWithIdentifier:)]) {
+        [[self delegateForIdentifier:identifier] fragmentSaveToDiskFailedWithIdentifier:identifier];
     }
 }
 

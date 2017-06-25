@@ -13,6 +13,7 @@
 @interface FragmentDownloadViewController () <HJMFragmentsDownloadManagerDelegate>
 
 @property (nonatomic, strong) NSArray *identifierArray;
+@property (nonatomic, strong) NSMutableArray *labelArray;
 
 @end
 
@@ -21,24 +22,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.identifierArray = @[@"aaaaaaa", @"bbbbbb", @"ccccccc"];
-    [HJMFragmentsDownloadManager defaultManager].delegate = self;
+    self.labelArray = [NSMutableArray array];
     [self setupUI];
 }
 
 - (void)setupUI {
     NSArray *titleArray = @[@"下载任务一", @"下载任务二", @"下载任务三", @"停止下载一", @"停止下载二", @"停止下载三", @"恢复下载一", @"恢复下载二", @"恢复下载三", @"删除文件一", @"删除文件二", @"删除文件三"];
     for (int i = 0; i < titleArray.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.tag = i;
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         button.layer.borderWidth = 1.0f;
         button.layer.borderColor = [UIColor blackColor].CGColor;
         [button setTitle:titleArray[i] forState:UIControlStateNormal];
-        CGRect rect = CGRectMake(20.0f, 80.0f + 50.0f * i, 150.0f, 30.0f);
+        CGRect rect = CGRectMake(20.0f, 80.0f + 50.0f * i, 100.0f, 30.0f);
         button.frame = rect;
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(170.0f, 80.0f + 50.0f * i, 250.0f, 30.0f);
+        label.tag = i;
+        [self.view addSubview:label];
+        [self.labelArray addObject:label];
     }
+}
+
+- (UILabel *)labelWithIdentifier:(NSString *)identifier {
+    NSInteger index = [self.identifierArray indexOfObject:identifier];
+    for (int i = 0; i < self.labelArray.count; i++) {
+        if (index == i) {
+            return [self.labelArray objectAtIndex:i];
+        }
+    }
+    return nil;
 }
 
 - (void)buttonClicked:(UIButton *)button {
@@ -102,26 +119,32 @@
 
 - (void)downloadTaskAddedToQueueWithIdentifer:(NSString *)identifier {
     NSLog(@"add to queue");
+    [self labelWithIdentifier:identifier].text = @"add to queue";
 }
 
 - (void)downloadTaskBeginWithIdentifier:(NSString *)identifier {
     NSLog(@"task begin: identifier :%@", identifier);
+    [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"task begin: identifier :%@", identifier];
 }
 
 - (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier {
     NSLog(@"download progress : %f  identifier :%@", progress, identifier);
+    [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"download progress : %f  identifier :%@", progress, identifier];
 }
 
 - (void)downloadTaskCompleteWithDirectoryPath:(NSString *)directoryPath identifier:(NSString *)identifier {
     NSLog(@"download success with path : %@", directoryPath);
+    [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"download success with path : %@", directoryPath];
 }
 
 - (void)downloadTaskCompleteWithError:(NSError *)error identifier:(NSString *)identifier {
     NSLog(@"download failed with error : %@", error);
+    [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"download failed with error : %@", error];
 }
 
-- (void)fragmentSaveToDiskFailed {
+- (void)fragmentSaveToDiskFailedWithIdentifier:(NSString *)identifier {
     NSLog(@"save failed");
+    [self labelWithIdentifier:identifier].text = [NSString stringWithFormat:@"save failed"];
 }
 
 

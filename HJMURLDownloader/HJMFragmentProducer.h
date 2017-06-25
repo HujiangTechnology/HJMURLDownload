@@ -43,7 +43,9 @@
 
 - (M3U8SegmentInfo *)oneMoreFragmentWithIdentifier:(NSString *)identifier;
 
-- (void)markFragmentAsDoneInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
+- (void)removeCompletedFragmentFromDBWithIdentifier:(NSString *)identifier;
+
+- (void)markFragmentFiredInDatabaseWithFragmentIdentifier:(NSString *)fragmentIdentifer identifier:(NSString *)identifier;
 
 - (void)deleteFragemntListWithIdentifier:(NSString *)identifier;
 

@@ -53,15 +53,13 @@
 /**
  存储出错 有可能是空间不够引起的
  */
-- (void)fragmentSaveToDiskFailed;
+- (void)fragmentSaveToDiskFailedWithIdentifier:(NSString *)identifier;
 
 - (void)fragmentDidStoppedWithIdentifier:(NSString *)identifier;
 
 @end
 
 @interface HJMFragmentsDownloadManager : NSObject
-
-@property (nonatomic, weak) id<HJMFragmentsDownloadManagerDelegate> delegate;
 
 /**
  只在wifi连接时下载，默认为NO

@@ -21,11 +21,13 @@
 
 - (void)insertFragmentModelArray:(NSMutableArray <M3U8SegmentInfo *> *)fragmentModels toTable:(NSString *)tableName;
 
-- (void)markFragmentModelDoneWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName;
+- (void)markFragmentModelFiredWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName;
+
+- (void)removeFragmentModelCompletedWithIdentifier:(NSString *)fragmentIdentifier inTable:(NSString *)tableName;
 
 - (NSInteger)leftRowCountInTable:(NSString *)tableName;
 
-- (BOOL)allFragmentsHaveDownloadedWithIdentifier:(NSString *)identifier;
+- (NSInteger)pendingRowCountInTable:(NSString *)tableName;
 
 - (BOOL)isTableExist:(NSString *)tableName;
 
