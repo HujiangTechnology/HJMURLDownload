@@ -44,11 +44,10 @@
         [self.pendingFragmentListArray removeObject:list];
     } else {
         // 没有队列了
+        self.currentFragmentArrayCount = 0;
         if ([self.delegate respondsToSelector:@selector(allFragmentListsHaveRunOut)]) {
             [self.delegate allFragmentListsHaveRunOut];
         }
-        self.currentFragmentArrayCount = 0;
-        self->_currentDownloadingIdentifier = nil;
     }
     return list;
 }
@@ -100,8 +99,6 @@
     } else if ([self.dbManager leftRowCountInTable:identifier] == 0) {
         [self.delegate fragmentListHasRunOutWithIdentifier:identifier];
         [self.dbManager dropTable:identifier];
-        self.currentFragmentArrayCount = 0;
-        self->_currentDownloadingIdentifier = nil;
     }
     return nil;
 }

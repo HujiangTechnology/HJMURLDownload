@@ -57,6 +57,7 @@
         self.concurrentCount = 4;
         self.onlyWiFiAccess = NO;
         self.supportBackgroundDownload = YES;
+        self.callbackModelArray = [NSMutableArray array];
     }
     return self;
 }
