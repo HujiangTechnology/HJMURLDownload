@@ -63,13 +63,14 @@
 
 - (HJMFragmentDownloadStatus)fragmentListDownloadStatusWithIdentifier:(NSString *)identifier {
     if ([self.producer isTableExistInDatabaseWithIdentifier:identifier]) {
-        return HJMURLDownloadStatusCanResume;
-    } else {
-        if ([self.consumer directoryExistsWithIdentifer:identifier]) {
-            return HJMURLDownloadStatusCompleted;
+        if ([self.producer leftFragmentCountWithIdentifier:identifier]) {
+            return HJMURLDownloadStatusCanResume;
+            
         } else {
-            return HJMURLDownloadStatusNone;
+            return HJMURLDownloadStatusCompleted;
         }
+    } else {
+        return HJMURLDownloadStatusNone;
     }
 }
 
