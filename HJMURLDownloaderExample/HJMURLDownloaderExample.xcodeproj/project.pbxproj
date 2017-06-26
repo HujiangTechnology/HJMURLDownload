@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5F4F85F7F8293020A638E5 /* libPods-HJMURLDownloaderExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE800D1F3897530D430BC6A5 /* libPods-HJMURLDownloaderExampleTests.a */; };
 		163FC1601A495FB100493899 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC15F1A495FB100493899 /* main.m */; };
 		163FC1631A495FB100493899 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1621A495FB100493899 /* AppDelegate.m */; };
 		163FC1661A495FB100493899 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163FC1651A495FB100493899 /* ViewController.m */; };
@@ -18,7 +19,9 @@
 		164867831A5929760032794E /* HJMZipWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 164867821A5929760032794E /* HJMZipWrapper.m */; };
 		167C21C31A5292BE0061C69B /* LessonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 167C21C21A5292BE0061C69B /* LessonItem.m */; };
 		16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */; };
-		929E68753C5D0661FEE1D3C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C6945508612BF54A7BAF00 /* libPods.a */; };
+		85E802251EFE3BEB0094D893 /* localM3u8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 85E802241EFE3BEA0094D893 /* localM3u8.txt */; };
+		85E802281EFE3D870094D893 /* FragmentDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */; };
+		E48CC784E042B686C9F06439 /* libPods-HJMURLDownloaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */; };
 		F32F9BA81A6397950050E109 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F32F9BA71A6397950050E109 /* TabBarViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -57,8 +60,17 @@
 		16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HJMURLDownloaderInstance.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HJMURLDownloaderExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85E802241EFE3BEA0094D893 /* localM3u8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = localM3u8.txt; sourceTree = "<group>"; };
+		85E802261EFE3D870094D893 /* FragmentDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FragmentDownloadViewController.h; sourceTree = "<group>"; };
+		85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FragmentDownloadViewController.m; sourceTree = "<group>"; };
+		87DDB217D01D93F22F441661 /* Pods-HJMURLDownloaderExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExampleTests/Pods-HJMURLDownloaderExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		9F3FD160715E4785879F5822 /* Pods-HJMURLDownloaderExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExample/Pods-HJMURLDownloaderExample.debug.xcconfig"; sourceTree = "<group>"; };
+		AE800D1F3897530D430BC6A5 /* libPods-HJMURLDownloaderExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HJMURLDownloaderExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDEC08366DC72810B608F371 /* Pods-HJMURLDownloaderExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExample/Pods-HJMURLDownloaderExample.release.xcconfig"; sourceTree = "<group>"; };
 		F32F9BA61A6397950050E109 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TabBarViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F32F9BA71A6397950050E109 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TabBarViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		FDBD8CC555CA65CC8AC47DAE /* Pods-HJMURLDownloaderExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HJMURLDownloaderExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HJMURLDownloaderExampleTests/Pods-HJMURLDownloaderExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				929E68753C5D0661FEE1D3C0 /* libPods.a in Frameworks */,
+				E48CC784E042B686C9F06439 /* libPods-HJMURLDownloaderExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C5F4F85F7F8293020A638E5 /* libPods-HJMURLDownloaderExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +98,10 @@
 			children = (
 				3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */,
 				1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */,
+				9F3FD160715E4785879F5822 /* Pods-HJMURLDownloaderExample.debug.xcconfig */,
+				CDEC08366DC72810B608F371 /* Pods-HJMURLDownloaderExample.release.xcconfig */,
+				FDBD8CC555CA65CC8AC47DAE /* Pods-HJMURLDownloaderExampleTests.debug.xcconfig */,
+				87DDB217D01D93F22F441661 /* Pods-HJMURLDownloaderExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -118,8 +135,11 @@
 				16E066B91A5BC78E0072FB6A /* HJMURLDownloaderInstance.m */,
 				163FC1641A495FB100493899 /* ViewController.h */,
 				163FC1651A495FB100493899 /* ViewController.m */,
+				85E802261EFE3D870094D893 /* FragmentDownloadViewController.h */,
+				85E802271EFE3D870094D893 /* FragmentDownloadViewController.m */,
 				167C21C11A5292BE0061C69B /* LessonItem.h */,
 				167C21C21A5292BE0061C69B /* LessonItem.m */,
+				85E802241EFE3BEA0094D893 /* localM3u8.txt */,
 				163FC1671A495FB100493899 /* Main.storyboard */,
 				163FC1B31A4AB69000493899 /* DownloadTableViewController.h */,
 				163FC1B41A4AB69000493899 /* DownloadTableViewController.m */,
@@ -164,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				16C6945508612BF54A7BAF00 /* libPods.a */,
+				7D936182A9376D48F132DEEE /* libPods-HJMURLDownloaderExample.a */,
+				AE800D1F3897530D430BC6A5 /* libPods-HJMURLDownloaderExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,12 +197,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 163FC17D1A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExample" */;
 			buildPhases = (
-				4B4A8417E853C223AF145FE6 /* Check Pods Manifest.lock */,
+				4B4A8417E853C223AF145FE6 /* [CP] Check Pods Manifest.lock */,
 				163FC1561A495FB100493899 /* Sources */,
 				163FC1571A495FB100493899 /* Frameworks */,
 				163FC1581A495FB100493899 /* Resources */,
-				7E239875CED80755A7F3535D /* Copy Pods Resources */,
-				20597D5E61EF043A7BD25B15 /* Embed Pods Frameworks */,
+				7E239875CED80755A7F3535D /* [CP] Copy Pods Resources */,
+				20597D5E61EF043A7BD25B15 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,9 +217,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 163FC1801A495FB100493899 /* Build configuration list for PBXNativeTarget "HJMURLDownloaderExampleTests" */;
 			buildPhases = (
+				AF43EBF82A4E254E3D6AE134 /* [CP] Check Pods Manifest.lock */,
 				163FC16F1A495FB100493899 /* Sources */,
 				163FC1701A495FB100493899 /* Frameworks */,
 				163FC1711A495FB100493899 /* Resources */,
+				23EAA7396916A63034889C28 /* [CP] Embed Pods Frameworks */,
+				EAFE2BB65856F85DB30E7FE8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -215,7 +240,7 @@
 		163FC1521A495FB100493899 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = HJ;
 				TargetAttributes = {
 					163FC1591A495FB100493899 = {
@@ -254,6 +279,7 @@
 				163FC1691A495FB100493899 /* Main.storyboard in Resources */,
 				163FC16E1A495FB100493899 /* LaunchScreen.xib in Resources */,
 				163FC16B1A495FB100493899 /* Images.xcassets in Resources */,
+				85E802251EFE3BEB0094D893 /* localM3u8.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,49 +293,94 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		20597D5E61EF043A7BD25B15 /* Embed Pods Frameworks */ = {
+		20597D5E61EF043A7BD25B15 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HJMURLDownloaderExample/Pods-HJMURLDownloaderExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4B4A8417E853C223AF145FE6 /* Check Pods Manifest.lock */ = {
+		23EAA7396916A63034889C28 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HJMURLDownloaderExampleTests/Pods-HJMURLDownloaderExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7E239875CED80755A7F3535D /* Copy Pods Resources */ = {
+		4B4A8417E853C223AF145FE6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7E239875CED80755A7F3535D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HJMURLDownloaderExample/Pods-HJMURLDownloaderExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF43EBF82A4E254E3D6AE134 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EAFE2BB65856F85DB30E7FE8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HJMURLDownloaderExampleTests/Pods-HJMURLDownloaderExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -320,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				163FC1661A495FB100493899 /* ViewController.m in Sources */,
+				85E802281EFE3D870094D893 /* FragmentDownloadViewController.m in Sources */,
 				163FC1631A495FB100493899 /* AppDelegate.m in Sources */,
 				163FC1601A495FB100493899 /* main.m in Sources */,
 				16E066BA1A5BC78E0072FB6A /* HJMURLDownloaderInstance.m in Sources */,
@@ -381,8 +453,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -391,6 +465,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -403,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -424,8 +499,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -433,13 +510,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -449,7 +527,7 @@
 		};
 		163FC17E1A495FB100493899 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DB605DF9B62036DDCFA7530 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 9F3FD160715E4785879F5822 /* Pods-HJMURLDownloaderExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -469,7 +547,7 @@
 		};
 		163FC17F1A495FB100493899 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C97654BC46EFB655AEB637B /* Pods.release.xcconfig */;
+			baseConfigurationReference = CDEC08366DC72810B608F371 /* Pods-HJMURLDownloaderExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -489,6 +567,7 @@
 		};
 		163FC1811A495FB100493899 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDBD8CC555CA65CC8AC47DAE /* Pods-HJMURLDownloaderExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -509,6 +588,7 @@
 		};
 		163FC1821A495FB100493899 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87DDB217D01D93F22F441661 /* Pods-HJMURLDownloaderExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

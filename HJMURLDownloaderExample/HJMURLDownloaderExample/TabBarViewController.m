@@ -25,7 +25,7 @@
     
     ViewController *viewController = [self.childViewControllers firstObject];
     
-    UINavigationController *navigationController = [self.childViewControllers lastObject];
+    UINavigationController *navigationController = [self.childViewControllers objectAtIndex:1];
     navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.141 green:0.553 blue:0.886 alpha:1.000];
     navigationController.navigationBar.tintColor = [UIColor whiteColor];
     navigationController.navigationBar.translucent = NO;
