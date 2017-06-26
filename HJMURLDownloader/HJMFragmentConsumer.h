@@ -11,7 +11,7 @@
 
 typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
     HJMURLDownloadStatusNone,       // 数据库中没有记录，是一个新任务
-    HJMURLDownloadStatusCanResume,  // 数据库中有记录，可以回复下载
+    HJMURLDownloadStatusCanResume,  // 数据库中有记录，可以恢复下载
     HJMURLDownloadStatusCompleted,  // 数据库中没有记录了，本地有文件夹，说明已经完成了
 };
 
@@ -45,6 +45,8 @@ typedef NS_ENUM(NSUInteger, HJMFragmentDownloadStatus) {
 @property (nonatomic, assign) NSInteger concurrentCount;
 
 @property (nonatomic, copy) NSString *backgroundIdentifier;
+
+@property (nonatomic, assign) NSInteger retryTimes;
 
 @property (nonatomic, weak) id<HJMFragmentConsumerDelegate> delegate;
 

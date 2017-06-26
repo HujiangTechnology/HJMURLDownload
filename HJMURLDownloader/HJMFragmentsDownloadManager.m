@@ -59,6 +59,11 @@
     self.consumer.backgroundIdentifier = backgroundIdentifier;
 }
 
+- (void)setRetryTimes:(NSInteger)retryTimes {
+    _retryTimes = retryTimes;
+    self.consumer.retryTimes = retryTimes;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         self.producer = [[HJMFragmentProducer alloc] init];

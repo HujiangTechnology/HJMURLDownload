@@ -78,7 +78,6 @@
 - (void)stopCurrentDownloadingFragmentList {
     [_session invalidateAndCancel];
     _session = nil;
-#warning 如果pending中还有任务，应该去下载下一个
     [self.delegate didStoppedCurrentFragmentListDownloading];
 }
 
@@ -100,13 +99,14 @@
     if (error) {
         NSNumber *retryTimes = self.retryDictionary[task.originalRequest.URL.absoluteString];
         // get the data task's original url
-        if ([retryTimes intValue] < 3) {
+        if ([retryTimes intValue] < self.retryTimes ?: 3) {
             // 记录下来，重试
             [[self.session downloadTaskWithURL:task.originalRequest.URL] resume];
             NSString *urlString = task.originalRequest.URL.absoluteString;
             self.retryDictionary[urlString] = @([retryTimes intValue] +1);
         } else {
             [self.delegate downloadTaskDidCompleteWithError:error identifier:self.currentDownloadIdentifier];
+            self.retryDictionary = [NSMutableDictionary dictionary];
         }
     }
 }
@@ -128,6 +128,8 @@ didFinishDownloadingToURL:(NSURL *)location {
         if (fragment) {
             // 下载下一个fragment
             [self startToDownloadFragmentArray:@[fragment] arrayIdentifer:self.currentDownloadIdentifier];
+        } else {
+            self.retryDictionary = [NSMutableDictionary dictionary];
         }
     } else {
         [self.delegate fragmentSaveToDiskFailedWithIdentifier:self.currentDownloadIdentifier];

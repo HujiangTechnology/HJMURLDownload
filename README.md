@@ -472,3 +472,37 @@ HJMDownloaderManagerContainerViewController *downloaderManagerContainerViewContr
 # 感谢
 
 本项目参考并借鉴 [HWIFileDownload](https://github.com/Heikowi/HWIFileDownload) 和 [TCBlobDownload](https://github.com/thibaultCha/TCBlobDownload)，在此表示感谢   
+````
+
+# 分片下载模块
+
+## 简介
+该模块用于下载分片文件列表，支持多列表队列下载, 文件列表结构如下
+
+```
+@interface M3U8SegmentInfoList : NSObject
+@property (nonatomic, strong) NSMutableArray <M3U8SegmentInfo *> *segmentInfoList;
+// 列表标示 建议是原url的md5值
+@property (nonatomic, copy) NSString *identifier;
+@end
+```
+
+## 接入流程
+
+1. 实现下载功能的是`HJMFragmentsDownloadManager`类，无论采用`defaultManager`还是`init`方法实例化该类，均返回一个单例，实例化后可以用属性`supportBackgroundDownload`和 `concurrentCount`来配置`HJMFragmentsDownloadManager` ，默认最大并发为4，不支持background下载
+
+2. 开始下载文件列表时，接入方应该首先调用`- (HJMFragmentDownloadStatus)fragmentListDownloadStatusWithIdentifier:(NSString *)identifier;
+`方法，查看要下载文件的状态，依据对应状态设置UI，该方法返回值为枚举
+>- HJMURLDownloadStatusNone,       // 数据库中没有记录，是一个新任务， 例如：接入方可以显示一个下载按钮
+>- HJMURLDownloadStatusCanResume,  // 数据库中有记录，可以恢复下载，例如：接入方可以显示一个继续下载按钮
+>- HJMURLDownloadStatusCompleted,  // 数据库中没有记录了，本地有文件夹，说明已经完成了，例如接入方可以显示一个已下载label
+
+3. 接入方将文件列表构造成上述结构， 调用`HJMFragmentsDownloadManager`的
+`- (void)downloadFragmentList:(M3U8SegmentInfoList *)fragments delegate:(id<HJMFragmentsDownloadManagerDelegate>)delegate;`方法下载该队列，接入方可以多次调用该方法，但一次只有一个队列下载，后续加入的队列进入等待状态，等待的队列在前一个队列下载完成或者被停止下载时才会开始下载。
+
+4. 下载事件由`HJMFragmentsDownloadManager`的代理方法抛出，代理方法均带有`identifier`参数，依据该参数接入方应当可以找到对应的文件列表。
+
+5. 下载列表中的每一个fragment下载完成时，都会调用`- (void)downloadTaskReachProgress:(CGFloat)progress identifier:(NSString *)identifier;`通知代理
+
+6. 文件下载出错重试次数默认为3次，接入方可以通过配置`HJMFragmentsDownloadManager`的`retryTimes`属性来自定义重试次数，下载失败达到重试次数会取消该文件列表的下载，调用`- (void)downloadTaskCompleteWithError:(NSError *)error identifier:(NSString *)identifier;`通知代理。
+

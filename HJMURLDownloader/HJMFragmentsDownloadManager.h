@@ -73,7 +73,15 @@
  */
 @property (nonatomic, assign) NSInteger concurrentCount;
 
+/**
+ background下载标示
+ */
 @property (nonatomic, copy) NSString *backgroundIdentifier;
+
+/**
+ 重试次数
+ */
+@property (nonatomic, assign) NSInteger retryTimes;
 
 /**
  *  创建普通下载器，不支持后台下载，默认不限制网络，
@@ -103,7 +111,7 @@
 - (void)stopDownloadFragmentListWithIdentifier:(NSString *)identifier;
 
 /**
- 删除对应的文件
+ 删除对应的文件以及数据库中储存的进度信息
 
  @param identifier 任务标示
  */
