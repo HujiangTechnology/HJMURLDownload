@@ -98,7 +98,6 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"localM3u8" ofType:@"txt"];
     NSString *m3u8String = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     M3U8SegmentInfoList *m3u8InfoList = [M3U8Parser m3u8SegmentInfoListFromPlanString:m3u8String];
-    m3u8InfoList.segmentInfoList = [NSMutableArray arrayWithArray:[m3u8InfoList.segmentInfoList subarrayWithRange:NSMakeRange(0, 10)]];
     m3u8InfoList.identifier = self.identifierArray[index];
     [[HJMFragmentsDownloadManager defaultManager] downloadFragmentList:m3u8InfoList delegate:self];
     [[self.buttonArray objectAtIndex:index] setTitle:@"停止下载" forState:UIControlStateNormal];
